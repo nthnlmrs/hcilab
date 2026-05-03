@@ -11,6 +11,10 @@ Route::get('/', function () {
     return view('pages.home');
 })->name('home');
 
+Route::get('/dashboard', function () {
+    return redirect()->route('home');
+})->name('dashboard');
+
 Route::get('/home', function () { return view('pages.home'); });
 Route::get('/p/{slug}', [PageViewerController::class, 'show'])->name('page.show');
 Route::get('/map', function () { return view('pages.dummy', ['title' => 'Map', 'icon' => 'fas fa-map']); })->name('map');
@@ -43,6 +47,13 @@ Route::middleware('auth')->group(function () {
         Route::get('/admin/quizzes', [AdminQuizController::class, 'index'])->name('admin.quizzes.index');
         Route::get('/admin/quizzes/create', [AdminQuizController::class, 'create'])->name('admin.quizzes.create');
         Route::post('/admin/quizzes', [AdminQuizController::class, 'store'])->name('admin.quizzes.store');
+
+        Route::resource('/admin/events', \App\Http\Controllers\Admin\EventController::class)->names([
+            'index' => 'admin.events.index',
+            'create' => 'admin.events.create',
+            'store' => 'admin.events.store',
+            'destroy' => 'admin.events.destroy',
+        ]);
     });
 });
 

@@ -9,10 +9,10 @@ class PageBlock extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['page_id', 'type', 'content', 'order'];
+    protected $fillable = ['page_id', 'type', 'content', 'data', 'order'];
 
     protected $casts = [
-        'content' => 'json',
+        'data' => 'array',
     ];
 
     public function page()

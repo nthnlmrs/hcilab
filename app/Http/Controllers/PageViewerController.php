@@ -9,7 +9,7 @@ class PageViewerController extends Controller
 {
     public function show($slug)
     {
-        $page = Page::where('slug', $slug)->with('blocks')->firstOrFail();
+        $page = Page::where('slug', $slug)->where('status', 'published')->with('blocks')->firstOrFail();
         return view('pages.show', compact('page'));
     }
 }

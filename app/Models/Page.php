@@ -9,7 +9,7 @@ class Page extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'slug', 'qr_code_path'];
+    protected $fillable = ['title', 'slug', 'description', 'cover_image', 'qr_code_path', 'status'];
 
     public function blocks()
     {
