@@ -26,23 +26,39 @@ class QuizController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
+            'status' => 'required|in:draft,published',
+            'image' => 'nullable|image|max:2048',
             'questions' => 'required|array|min:1',
             'questions.*.text' => 'required|string',
+            'questions.*.points' => 'required|integer|min:0',
             'questions.*.choices' => 'required|array|min:2',
             'questions.*.choices.*.text' => 'required|string',
             'questions.*.correct_choice' => 'required|integer',
         ]);
 
+        $imagePath = null;
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('quizzes', 'public');
+        }
+
         $quiz = Quiz::create([
             'title' => $request->title,
             'description' => $request->description,
+            'status' => $request->status,
+            'image' => $imagePath,
         ]);
 
         foreach ($request->questions as $qIndex => $qData) {
+            $qImagePath = null;
+            if (isset($qData['image_file'])) {
+                $qImagePath = $qData['image_file']->store('questions', 'public');
+            }
+
             $question = Question::create([
                 'quiz_id' => $quiz->id,
                 'text' => $qData['text'],
-                'image_path' => $qData['image'] ?? null,
+                'points' => $qData['points'],
+                'image_path' => $qImagePath,
                 'description' => $qData['desc'] ?? null,
             ]);
 
