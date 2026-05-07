@@ -18,14 +18,6 @@ return new class extends Migration
             $table->json('data')->nullable()->after('content');
         });
 
-        Schema::table('quizzes', function (Blueprint $table) {
-            $table->string('status')->default('draft')->after('description');
-            $table->string('image')->nullable()->after('status');
-        });
-
-        Schema::table('questions', function (Blueprint $table) {
-            $table->integer('points')->default(10)->after('text');
-        });
     }
 
     public function down(): void
@@ -36,14 +28,6 @@ return new class extends Migration
 
         Schema::table('page_blocks', function (Blueprint $table) {
             $table->dropColumn('data');
-        });
-
-        Schema::table('quizzes', function (Blueprint $table) {
-            $table->dropColumn(['status', 'image']);
-        });
-
-        Schema::table('questions', function (Blueprint $table) {
-            $table->dropColumn('points');
         });
     }
 };

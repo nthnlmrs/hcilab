@@ -32,25 +32,25 @@ class QuizController extends Controller
         $score = 0;
         $totalPoints = 0;
 
+        $choices = Choice::whereIn('id', $request->answers ?? [])->get()->keyBy('id');
+
         foreach ($quiz->questions as $question) {
             $totalPoints += $question->points;
             $userChoiceId = $request->answers[$question->id] ?? null;
 
             if ($userChoiceId) {
-                $choice = Choice::find($userChoiceId);
+                $choice = $choices->get($userChoiceId);
                 if ($choice && $choice->is_correct) {
                     $score += $question->points;
                 }
             }
         }
 
-        if (auth()->check()) {
-            QuizScore::create([
-                'quiz_id' => $quiz->id,
-                'user_id' => auth()->id(),
-                'score' => $score,
-            ]);
-        }
+        QuizScore::create([
+            'quiz_id' => $quiz->id,
+            'user_id' => auth()->id(),
+            'score' => $score,
+        ]);
 
         return redirect()->route('quiz.result', [$quiz, $score]);
     }
