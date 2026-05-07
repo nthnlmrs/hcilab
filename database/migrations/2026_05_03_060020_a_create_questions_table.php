@@ -17,6 +17,7 @@ return new class extends Migration
             $table->text('text');
             $table->string('image_path')->nullable();
             $table->text('description')->nullable();
+            $table->integer('points')->default(1);
             $table->timestamps();
         });
     }
