@@ -1,3 +1,4 @@
+@section('section_name', 'Quiz')
 <x-app-layout>
     <div class="pt-6 pb-20 px-4 w-full">
         <h1 class="font-serif text-3xl font-bold text-museum-green mb-2">Quizzes</h1>

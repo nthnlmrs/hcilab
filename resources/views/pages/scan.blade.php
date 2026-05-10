@@ -1,3 +1,4 @@
+@section('section_name', 'QR Code Scan')
 <x-app-layout>
     <!-- Show message on desktop -->
     <div class="hidden md:flex flex-col items-center justify-center h-[70vh] text-center">

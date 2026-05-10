@@ -24,7 +24,7 @@
                 :class="isCollapsed ? 'w-20' : 'w-64'"
                 class="hidden md:flex flex-col fixed inset-y-0 bg-white shadow-2xl z-50 transition-all duration-300 overflow-hidden border-r border-gray-100">
                 
-                <div class="p-6 flex items-center justify-between">
+                <div class="p-6 flex items-center" :class="isCollapsed ? 'justify-center' : 'justify-between'">
                     <h1 x-show="!isCollapsed" x-transition.opacity class="font-serif text-xl font-bold text-museum-green leading-tight">
                         Singhasari
                     </h1>
@@ -85,7 +85,7 @@
                             </a>
                         @else
                             <!-- Jika Guest -->
-                            <a href="{{ route('login') }}" class="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-museum-green text-white font-bold text-sm shadow-md hover:bg-museum-darkGreen hover:shadow-lg transition-all active:scale-95">
+                            <a href="{{ route('login') }}" class="flex items-center gap-2 px-6 py-3.5 rounded-lg bg-museum-green text-white font-bold text-sm shadow-md hover:bg-museum-darkGreen hover:shadow-lg transition-all active:scale-95">
                                 <i class="fas fa-sign-in-alt text-xs"></i>
                                 <span>Masuk</span>
                             </a>

@@ -1,3 +1,4 @@
+@section('section_name', 'Home')
 <x-app-layout>
     <x-slot name="header">
         <div>

@@ -1,3 +1,4 @@
+@section('section_name', 'Event Detail')
 <x-app-layout>
     <div class="pb-24">
         <!-- Hero Cover -->
