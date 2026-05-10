@@ -1,9 +1,12 @@
 <x-app-layout>
-    <div class="pt-6 pb-20 px-4 max-w-2xl mx-auto">
+    <div class="pt-6 pb-20 px-4 w-full">
         <h1 class="font-serif text-3xl font-bold text-museum-green mb-2">Quizzes</h1>
         <p class="text-sm text-gray-500 mb-8">Test your knowledge about Singhasari Kingdom.</p>
 
-        <div class="bg-museum-green rounded-3xl p-6 text-white mb-10 shadow-lg relative overflow-hidden">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Main Content Area -->
+            <div class="lg:col-span-2">
+                <div class="bg-museum-green rounded-3xl p-6 text-white mb-10 shadow-lg relative overflow-hidden">
             <div class="absolute top-0 right-0 w-32 h-32 bg-white opacity-5 rounded-full -mr-10 -mt-10"></div>
             <div class="relative z-10">
                 <h2 class="font-serif text-2xl font-bold mb-2">Play a Quiz</h2>
@@ -12,8 +15,8 @@
             </div>
         </div>
 
-        <div id="quiz-list" class="space-y-6 mb-12">
-            <h3 class="text-sm font-bold text-museum-green uppercase tracking-widest">Available Quizzes</h3>
+                <div id="quiz-list" class="space-y-6 mb-12 lg:mb-0">
+                    <h3 class="text-sm font-bold text-museum-green uppercase tracking-widest">Available Quizzes</h3>
             @php
                 $quizzes = \App\Models\Quiz::where('status', 'published')->withCount('questions')->get();
             @endphp
@@ -35,16 +38,19 @@
                     </div>
                     <i class="fas fa-chevron-right text-gray-300"></i>
                 </a>
-            @empty
-                <div class="text-center py-10 bg-white rounded-3xl shadow-sm italic text-gray-400 text-sm">
-                    No quizzes available at the moment.
+                    @empty
+                        <div class="text-center py-10 bg-white rounded-3xl shadow-sm italic text-gray-400 text-sm">
+                            No quizzes available at the moment.
+                        </div>
+                    @endforelse
                 </div>
-            @endforelse
-        </div>
+            </div>
 
-        <!-- Leaderboard Section -->
-        <div class="bg-museum-green rounded-3xl p-6 text-white shadow-lg mb-8">
-            <h3 class="font-serif text-xl font-bold mb-6 flex items-center">
+            <!-- Sidebar Area -->
+            <div class="space-y-8">
+                <!-- Leaderboard Section -->
+                <div class="bg-museum-green rounded-3xl p-6 text-white shadow-lg">
+                    <h3 class="font-serif text-xl font-bold mb-6 flex items-center">
                 <i class="fas fa-trophy text-museum-brown mr-3"></i> Top Scorers
             </h3>
             <div class="space-y-4">
@@ -74,10 +80,10 @@
             </div>
         </div>
 
-        <!-- Your History (If logged in) -->
-        @auth
-        <div class="mb-4">
-            <h3 class="text-sm font-bold text-museum-green uppercase tracking-widest mb-4">Your Recent Attempts</h3>
+                <!-- Your History (If logged in) -->
+                @auth
+                <div class="mb-4">
+                    <h3 class="text-sm font-bold text-museum-green uppercase tracking-widest mb-4">Your Recent Attempts</h3>
             <div class="space-y-3">
                 @php
                     $myScores = \App\Models\QuizScore::where('user_id', auth()->id())->with('quiz')->latest()->take(5)->get();
@@ -98,11 +104,13 @@
                 @endforelse
             </div>
         </div>
-        @else
-        <div class="bg-museum-brown rounded-3xl p-6 text-white shadow-lg text-center">
-            <p class="text-sm font-bold mb-4">Login to save your scores and see the leaderboard!</p>
-            <a href="{{ route('login') }}" class="inline-block px-8 py-2 bg-white text-museum-brown rounded-full text-xs font-bold uppercase tracking-widest shadow-md">Login / Register</a>
+                @else
+                <div class="bg-museum-brown rounded-3xl p-6 text-white shadow-lg text-center">
+                    <p class="text-sm font-bold mb-4">Login to save your scores and see the leaderboard!</p>
+                    <a href="{{ route('login') }}" class="inline-block px-8 py-2 bg-white text-museum-brown rounded-full text-xs font-bold uppercase tracking-widest shadow-md">Login / Register</a>
+                </div>
+                @endauth
+            </div>
         </div>
-        @endauth
     </div>
 </x-app-layout>
