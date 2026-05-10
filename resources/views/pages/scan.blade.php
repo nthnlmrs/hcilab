@@ -1,5 +1,14 @@
 <x-app-layout>
-    <div class="pt-6 pb-20 px-4 max-w-2xl mx-auto h-screen flex flex-col">
+    <!-- Show message on desktop -->
+    <div class="hidden md:flex flex-col items-center justify-center h-[70vh] text-center">
+        <i class="fas fa-mobile-alt text-6xl text-gray-300 mb-6"></i>
+        <h2 class="font-serif text-2xl font-bold text-museum-green mb-2">Mobile Feature</h2>
+        <p class="text-gray-500 max-w-md">The QR Code scanning feature is only available on mobile devices. Please open this app on your smartphone to scan artifacts.</p>
+        <a href="{{ route('home') }}" class="mt-8 px-6 py-2 bg-museum-green text-white rounded-xl font-bold shadow-md hover:bg-museum-darkGreen transition-colors">Return to Home</a>
+    </div>
+
+    <!-- Scanner UI on Mobile -->
+    <div class="md:hidden pt-6 pb-20 px-4 max-w-2xl mx-auto min-h-[calc(100vh-80px)] flex flex-col">
         <div class="flex items-center mb-6">
             <a href="{{ route('home') }}" class="w-8 h-8 rounded-full bg-white flex items-center justify-center text-museum-green shadow-sm mr-4">
                 <i class="fas fa-arrow-left"></i>
@@ -27,10 +36,13 @@
         </div>
     </div>
 
-    <!-- Include Html5Qrcode library -->
+    <!-- Include Html5Qrcode library only on mobile -->
     <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Only initialize scanner on mobile views
+            if (window.innerWidth >= 768) return;
+
             let html5QrcodeScanner;
             const resultDiv = document.getElementById('result');
             const resultLink = document.getElementById('result-link');

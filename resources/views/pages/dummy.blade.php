@@ -8,7 +8,7 @@
             This section is currently under development. Soon you'll be able to explore the full {{ strtolower($title) }} of Museum Singhasari here.
         </p>
         
-        <div class="mt-10 grid grid-cols-2 gap-4 w-full">
+        <div class="mt-10 grid grid-cols-2 md:grid-cols-4 gap-4 w-full">
             <div class="h-32 bg-gray-100 rounded-3xl animate-pulse"></div>
             <div class="h-32 bg-gray-100 rounded-3xl animate-pulse"></div>
             <div class="h-32 bg-gray-100 rounded-3xl animate-pulse"></div>
