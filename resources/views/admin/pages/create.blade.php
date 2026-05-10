@@ -1,3 +1,4 @@
+@section('section_name', 'Create Page')
 <x-app-layout>
     <div class="pt-6 pb-20 px-4 max-w-2xl mx-auto">
         <div class="flex items-center mb-6">

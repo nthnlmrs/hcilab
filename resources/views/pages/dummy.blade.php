@@ -1,3 +1,4 @@
+@section('section_name', 'Map')
 <x-app-layout>
     <div class="pt-6 pb-24 h-full flex flex-col items-center justify-center text-center">
         <div class="w-24 h-24 rounded-full bg-museum-green/10 flex items-center justify-center text-museum-green mb-6">

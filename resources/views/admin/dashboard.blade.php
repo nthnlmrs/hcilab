@@ -1,3 +1,4 @@
+@section('section_name', 'Admin Dashboard')
 <x-app-layout>
     <div class="pt-6 pb-20 px-4 max-w-2xl mx-auto">
         <h1 class="font-serif text-2xl font-bold text-museum-green mb-6">Admin Dashboard</h1>

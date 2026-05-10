@@ -1,3 +1,4 @@
+@section('section_name', 'Quiz')
 <x-app-layout>
     <div class="pt-6 pb-20 px-4 max-w-2xl mx-auto min-h-screen flex flex-col">
         <div class="flex items-center mb-6">
