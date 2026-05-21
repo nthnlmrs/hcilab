@@ -10,16 +10,10 @@
 
         <div class="flex flex-col items-center mb-10">
             <div class="w-24 h-24 rounded-full bg-museum-green border-4 border-white shadow-xl overflow-hidden mb-4">
-                <img src="https://ui-avatars.com/api/?name={{ urlencode($user->name) }}&background=174F49&color=fff&size=128" class="w-full h-full object-cover">
+                <img src="https://ui-avatars.com/api/?name={{ urlencode($user->name) }}&background=1B4A47&color=fff&size=128" class="w-full h-full object-cover">
             </div>
             <h2 class="font-serif text-xl font-bold text-museum-green">{{ $user->name }}</h2>
             <p class="text-xs text-gray-400 font-bold uppercase tracking-widest">{{ $user->email }}</p>
-            
-            @if($user->role === 'admin')
-                <a href="{{ route('admin.dashboard') }}" class="mt-4 px-6 py-1.5 bg-museum-brown text-white text-[10px] font-black rounded-full uppercase tracking-widest shadow-md">
-                    Admin Dashboard
-                </a>
-            @endif
         </div>
 
         <div class="bg-white rounded-[40px] p-6 shadow-soft space-y-2">

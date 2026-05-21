@@ -14,9 +14,10 @@ export default {
         extend: {
             colors: {
                 museum: {
-                    beige: '#DCCDB3', // Cream Background
-                    green: '#174F49', // Primary Dark Green
-                    darkGreen: '#0F3F3A', // Deep Green
+                    beige: '#D5C6B1', // Cream Background
+                    text: '#0F2F2E', // Text on Background
+                    green: '#1B4A47', // Primary Dark Green
+                    darkGreen: '#123937', // Deep Green
                     brown: '#8A5A3C', // Brown Accent
                 }
             },
