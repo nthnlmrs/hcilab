@@ -57,6 +57,10 @@ Route::middleware('auth')->group(function () {
         Route::get('/admin/quizzes', [AdminQuizController::class, 'index'])->name('admin.quizzes.index');
         Route::get('/admin/quizzes/create', [AdminQuizController::class, 'create'])->name('admin.quizzes.create');
         Route::post('/admin/quizzes', [AdminQuizController::class, 'store'])->name('admin.quizzes.store');
+        Route::get('/admin/quizzes/{quiz}/edit', [AdminQuizController::class, 'edit'])->name('admin.quizzes.edit');
+        Route::put('/admin/quizzes/{quiz}', [AdminQuizController::class, 'update'])->name('admin.quizzes.update');
+        Route::delete('/admin/quizzes/{quiz}', [AdminQuizController::class, 'destroy'])->name('admin.quizzes.destroy');
+        Route::post('/admin/quizzes/{quiz}/toggle-status', [AdminQuizController::class, 'toggleStatus'])->name('admin.quizzes.toggleStatus');
 
         Route::resource('/admin/events', EventController::class)->names([
             'index' => 'admin.events.index',
