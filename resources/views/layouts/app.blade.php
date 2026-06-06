@@ -92,6 +92,7 @@
                 class="flex-1 flex flex-col min-h-screen w-full transition-all duration-300">
                 
                 <!-- Top Navbar -->
+                @if(request()->routeIs('home'))
                 <header class="flex items-center justify-between bg-white sticky top-0 z-40 px-6 md:px-8 py-4 border-b border-gray-100">
                     <div class="flex items-center gap-4">
                         <div>
@@ -125,6 +126,7 @@
                         @endauth
                     </div>
                 </header>
+                @endif
 
                 <main class="flex-1 px-6 md:px-10 py-8 pb-28 md:pb-10 max-w-7xl mx-auto w-full">
                     {{ $slot }}
