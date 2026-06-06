@@ -33,57 +33,58 @@
                     </button>
                 </div>
                 
-                <nav class="flex-1 px-4 space-y-2 mt-4">
-                    <a href="{{ route('home') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors {{ request()->routeIs('home') ? 'bg-museum-green text-white shadow-md' : 'text-gray-600 hover:bg-museum-beige' }}">
-                        <i class="fas fa-home text-lg w-6 text-center"></i>
-                        <span x-show="!isCollapsed" x-transition.opacity class="font-bold">Home</span>
-                    </a>
-                    <a href="{{ route('map') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors {{ request()->routeIs('map') ? 'bg-museum-green text-white shadow-md' : 'text-gray-600 hover:bg-museum-beige' }}">
-                        <i class="fas fa-map-marked-alt text-lg w-6 text-center"></i>
-                        <span x-show="!isCollapsed" x-transition.opacity class="font-bold">Map</span>
-                    </a>
-                    <a href="{{ route('quiz.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors {{ request()->routeIs('quiz.*') ? 'bg-museum-green text-white shadow-md' : 'text-gray-600 hover:bg-museum-beige' }}">
-                        <i class="fas fa-lightbulb text-lg w-6 text-center"></i>
-                        <span x-show="!isCollapsed" x-transition.opacity class="font-bold">Quiz</span>
-                    </a>
-                    <a href="{{ route('gallery') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors {{ request()->routeIs('gallery') ? 'bg-museum-green text-white shadow-md' : 'text-gray-600 hover:bg-museum-beige' }}">
-                        <i class="fas fa-images text-lg w-6 text-center"></i>
-                        <span x-show="!isCollapsed" x-transition.opacity class="font-bold">Gallery</span>
-                    </a>
-                </nav>
+                <nav class="flex-1 px-4 space-y-4 mt-4 overflow-y-auto">
+                    <!-- Dashboard -->
+                    <div class="space-y-1">
+                        <a href="{{ route('home') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors {{ request()->routeIs('home') ? 'bg-museum-green text-white shadow-md' : 'text-gray-600 hover:bg-museum-beige' }}">
+                            <i class="fas fa-chart-line text-lg w-6 text-center"></i>
+                            <span x-show="!isCollapsed" x-transition.opacity class="font-bold">Dashboard</span>
+                        </a>
+                    </div>
 
-                @auth
-                    @if(Auth::user()->role === 'admin')
-                        <div class="px-4 pb-6 mt-auto" x-data="{ adminOpen: false }">
-                            <button @click="adminOpen = !adminOpen; if(isCollapsed) isCollapsed = false" class="w-full flex items-center justify-between gap-3 px-4 py-3 rounded-xl transition-colors {{ request()->routeIs('admin.*') ? 'bg-museum-green text-white shadow-md' : 'text-gray-600 hover:bg-museum-beige' }}">
-                                <div class="flex items-center gap-3">
-                                    <i class="fas fa-shield-alt text-lg w-6 text-center"></i>
-                                    <span x-show="!isCollapsed" class="font-bold">Admin</span>
-                                </div>
-                                <i x-show="!isCollapsed" class="fas fa-chevron-down text-sm transition-transform duration-200" :class="adminOpen ? 'rotate-180' : ''"></i>
-                            </button>
+                    <!-- User Section -->
+                    <div class="space-y-1">
+                        <div x-show="!isCollapsed" x-transition.opacity class="px-4 py-1 text-[11px] font-extrabold text-gray-400 uppercase tracking-widest select-none">User Section</div>
+                        <a href="{{ route('map') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors {{ request()->routeIs('map') ? 'bg-museum-green text-white shadow-md' : 'text-gray-600 hover:bg-museum-beige' }}">
+                            <i class="fas fa-map-marked-alt text-lg w-6 text-center"></i>
+                            <span x-show="!isCollapsed" x-transition.opacity class="font-bold">Map</span>
+                        </a>
+                        <a href="{{ route('quiz.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors {{ request()->routeIs('quiz.*') ? 'bg-museum-green text-white shadow-md' : 'text-gray-600 hover:bg-museum-beige' }}">
+                            <i class="fas fa-lightbulb text-lg w-6 text-center"></i>
+                            <span x-show="!isCollapsed" x-transition.opacity class="font-bold">Quiz</span>
+                        </a>
+                        <a href="{{ route('gallery') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors {{ request()->routeIs('gallery') ? 'bg-museum-green text-white shadow-md' : 'text-gray-600 hover:bg-museum-beige' }}">
+                            <i class="fas fa-images text-lg w-6 text-center"></i>
+                            <span x-show="!isCollapsed" x-transition.opacity class="font-bold">Gallery</span>
+                        </a>
+                    </div>
 
-                            <div x-show="adminOpen && !isCollapsed" x-collapse class="mt-2 space-y-1 px-3">
-                                <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3 px-4 py-2 text-sm rounded-lg hover:bg-museum-beige text-gray-600">
-                                    <i class="fas fa-tachometer-alt w-5 text-center"></i>
-                                    <span>Dashboard</span>
-                                </a>
-                                <a href="{{ route('admin.pages.create') }}" class="flex items-center gap-3 px-4 py-2 text-sm rounded-lg hover:bg-museum-beige text-gray-600">
-                                    <i class="fas fa-file-medical w-5 text-center"></i>
-                                    <span>Create Page</span>
-                                </a>
-                                <a href="{{ route('admin.quizzes.create') }}" class="flex items-center gap-3 px-4 py-2 text-sm rounded-lg hover:bg-museum-beige text-gray-600">
-                                    <i class="fas fa-question-circle w-5 text-center"></i>
-                                    <span>Create Quiz</span>
-                                </a>
-                                <a href="{{ route('admin.events.create') }}" class="flex items-center gap-3 px-4 py-2 text-sm rounded-lg hover:bg-museum-beige text-gray-600">
-                                    <i class="fas fa-calendar-plus w-5 text-center"></i>
-                                    <span>Create Event</span>
-                                </a>
-                            </div>
+                    <!-- Admin Control -->
+                    @auth
+                        @if(Auth::user()->role === 'admin')
+                        <div class="space-y-1">
+                            <div x-show="!isCollapsed" x-transition.opacity class="px-4 py-1 text-[11px] font-extrabold text-gray-400 uppercase tracking-widest mt-2 select-none">Admin Control</div>
+                            
+                            <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors {{ request()->routeIs('admin.dashboard') ? 'bg-museum-green text-white shadow-md' : 'text-gray-600 hover:bg-museum-beige' }}">
+                                <i class="fas fa-tachometer-alt text-lg w-6 text-center"></i>
+                                <span x-show="!isCollapsed" x-transition.opacity class="font-bold">Dashboard</span>
+                            </a>
+                            <a href="{{ route('admin.pages.create') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors {{ request()->routeIs('admin.pages.create') ? 'bg-museum-green text-white shadow-md' : 'text-gray-600 hover:bg-museum-beige' }}">
+                                <i class="fas fa-file-medical text-lg w-6 text-center"></i>
+                                <span x-show="!isCollapsed" x-transition.opacity class="font-bold">Create Page</span>
+                            </a>
+                            <a href="{{ route('admin.quizzes.create') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors {{ request()->routeIs('admin.quizzes.create') ? 'bg-museum-green text-white shadow-md' : 'text-gray-600 hover:bg-museum-beige' }}">
+                                <i class="fas fa-question-circle text-lg w-6 text-center"></i>
+                                <span x-show="!isCollapsed" x-transition.opacity class="font-bold">Create Quiz</span>
+                            </a>
+                            <a href="{{ route('admin.events.create') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors {{ request()->routeIs('admin.events.create') ? 'bg-museum-green text-white shadow-md' : 'text-gray-600 hover:bg-museum-beige' }}">
+                                <i class="fas fa-calendar-plus text-lg w-6 text-center"></i>
+                                <span x-show="!isCollapsed" x-transition.opacity class="font-bold">Create Event</span>
+                            </a>
                         </div>
-                    @endif
-                @endauth
+                        @endif
+                    @endauth
+                </nav>
             </aside>
 
             <!-- Main Content Area -->
