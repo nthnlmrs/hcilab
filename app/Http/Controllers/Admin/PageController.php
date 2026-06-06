@@ -84,4 +84,79 @@ class PageController extends Controller
 
         return redirect()->route('admin.pages.index')->with('success', 'Page created successfully.');
     }
+
+    public function edit(Page $page)
+    {
+        $page->load('blocks');
+        return view('admin.pages.edit', compact('page'));
+    }
+
+    public function update(Request $request, Page $page)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'cover_image' => 'nullable|image|max:2048',
+            'status' => 'required|in:draft,published',
+            'blocks' => 'nullable|array',
+        ]);
+
+        $data = $request->only(['title', 'description', 'status']);
+
+        if ($request->hasFile('cover_image')) {
+            $data['cover_image'] = $request->file('cover_image')->store('pages', 'public');
+        }
+
+        // Only update slug if title changed significantly? Let's keep slug same for existing QR code unless requested,
+        // For simplicity and to not break existing QRs, we will NOT update the slug on edit.
+
+        $page->update($data);
+
+        $page->blocks()->delete();
+
+        if ($request->blocks) {
+            foreach ($request->blocks as $index => $block) {
+                $blockData = $block['data'] ?? [];
+
+                if ($block['type'] === 'image') {
+                    if (isset($block['image_file'])) {
+                        $blockData['url'] = $block['image_file']->store('blocks', 'public');
+                    } elseif (isset($block['existing_image'])) {
+                        $blockData['url'] = $block['existing_image'];
+                    }
+                } elseif ($block['type'] === 'card') {
+                    if (isset($block['image_file'])) {
+                        $blockData['image'] = $block['image_file']->store('blocks', 'public');
+                    } elseif (isset($block['existing_image'])) {
+                        $blockData['image'] = $block['existing_image'];
+                    }
+                }
+
+                PageBlock::create([
+                    'page_id' => $page->id,
+                    'type' => $block['type'],
+                    'content' => $block['content'] ?? null,
+                    'data' => $blockData,
+                    'order' => $index,
+                ]);
+            }
+        }
+
+        return redirect()->route('admin.pages.index')->with('success', 'Page updated successfully.');
+    }
+
+    public function destroy(Page $page)
+    {
+        $page->delete();
+        return redirect()->route('admin.pages.index')->with('success', 'Page deleted successfully.');
+    }
+
+    public function toggleStatus(Page $page)
+    {
+        $page->update([
+            'status' => $page->status === 'published' ? 'draft' : 'published'
+        ]);
+
+        return redirect()->route('admin.pages.index')->with('success', 'Page status updated successfully.');
+    }
 }

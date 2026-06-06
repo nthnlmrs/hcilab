@@ -29,11 +29,26 @@
                         </div>
                         <p class="text-[10px] text-gray-400">/p/{{ $page->slug }}</p>
                     </div>
-                    <div class="flex gap-3">
-                        <a href="{{ asset('storage/' . $page->qr_code_path) }}" download class="text-museum-brown hover:text-museum-green">
+                    <div class="flex items-center gap-3">
+                        <a href="{{ asset('storage/' . $page->qr_code_path) }}" download class="text-museum-brown hover:text-museum-green transition-colors" title="Download QR">
                             <i class="fas fa-qrcode text-lg"></i>
                         </a>
-                        <button class="text-gray-300 hover:text-red-500"><i class="fas fa-trash-alt"></i></button>
+                        <form action="{{ route('admin.pages.toggleStatus', $page) }}" method="POST" class="inline">
+                            @csrf
+                            <button type="submit" class="text-gray-400 hover:text-museum-green transition-colors" title="Toggle Status">
+                                <i class="fas {{ $page->status === 'published' ? 'fa-eye-slash' : 'fa-eye' }}"></i>
+                            </button>
+                        </form>
+                        <a href="{{ route('admin.pages.edit', $page) }}" class="text-gray-400 hover:text-blue-500 transition-colors" title="Edit Page">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <form action="{{ route('admin.pages.destroy', $page) }}" method="POST" class="inline" onsubmit="return confirm('Are you sure you want to delete this page?');">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="text-gray-400 hover:text-red-500 transition-colors" title="Delete Page">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </form>
                     </div>
                 </div>
             @empty
