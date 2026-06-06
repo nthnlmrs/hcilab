@@ -20,10 +20,18 @@
                 <button onclick="alert('Belum ada notifikasi baru.')" class="w-11 h-11 rounded-full bg-white flex items-center justify-center text-[#1b4a47] shadow-sm hover:scale-105 active:scale-95 transition-all">
                     <i class="far fa-bell text-lg"></i>
                 </button>
-                <!-- Profile Avatar -->
-                <a href="{{ route('profile.edit') }}" class="w-11 h-11 rounded-full border-2 border-white overflow-hidden shadow-md hover:scale-105 active:scale-95 transition-all block">
-                    <img src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name ?? 'Guest') }}&background=1B4A47&color=fff&size=96" alt="Profile" class="w-full h-full object-cover">
-                </a>
+                @auth
+                    <!-- Profile Avatar -->
+                    <a href="{{ route('profile.edit') }}" class="w-11 h-11 rounded-full border-2 border-white overflow-hidden shadow-md hover:scale-105 active:scale-95 transition-all block">
+                        <img src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}&background=1B4A47&color=fff&size=96" alt="Profile" class="w-full h-full object-cover">
+                    </a>
+                @else
+                    <!-- Masuk Button -->
+                    <a href="{{ route('login') }}" class="flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-[#1b4a47] hover:bg-[#123937] text-white font-bold text-sm shadow-md hover:scale-105 active:scale-95 transition-all">
+                        <i class="fas fa-sign-in-alt text-xs"></i>
+                        <span>Masuk</span>
+                    </a>
+                @endauth
             </div>
         </div>
 

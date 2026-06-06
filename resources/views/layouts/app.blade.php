@@ -108,42 +108,7 @@
                 :class="isCollapsed ? 'md:ml-20' : 'md:ml-64'"
                 class="flex-1 flex flex-col min-h-screen w-full transition-all duration-300">
                 
-                <!-- Top Navbar -->
-                @if(request()->routeIs('home'))
-                <header class="flex items-center justify-between bg-white sticky top-0 z-40 px-6 md:px-8 py-4 border-b border-gray-100">
-                    <div class="flex items-center gap-4">
-                        <div>
-                            <h2 class="text-sm font-semibold text-museum-green tracking-widest uppercase">
-                                @yield('section_name', 'Dashboard')
-                            </h2>
-                        </div>
-                    </div>
 
-                    <div class="flex items-center gap-6">
-                        @auth
-                            <!-- Jika Sudah Login -->
-                            <a href="{{ route('profile.edit') }}" class="flex items-center gap-3 group">
-                                <div class="text-right hidden md:block">
-                                    <p class="text-sm font-bold text-museum-text leading-none group-hover:text-museum-green transition-colors">{{ Auth::user()->name }}</p>
-                                    <p class="text-[10px] text-gray-400 font-medium mt-1 uppercase tracking-tighter">Administrator</p>
-                                </div>
-                                <div class="relative">
-                                    <div class="w-10 h-10 rounded-full border-2 border-museum-green p-0.5 group-hover:scale-110 transition-transform">
-                                        <img src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}&background=004d40&color=fff" alt="Profile" class="w-full h-full rounded-full object-cover">
-                                    </div>
-                                    <div class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white rounded-full"></div>
-                                </div>
-                            </a>
-                        @else
-                            <!-- Jika Guest -->
-                            <a href="{{ route('login') }}" class="flex items-center gap-2 px-6 py-3.5 rounded-lg bg-museum-green text-white font-bold text-sm shadow-md hover:bg-museum-darkGreen hover:shadow-lg transition-all active:scale-95">
-                                <i class="fas fa-sign-in-alt text-xs"></i>
-                                <span class="hidden md:inline">Masuk</span>
-                            </a>
-                        @endauth
-                    </div>
-                </header>
-                @endif
 
                 <main class="flex-1 px-6 md:px-10 py-8 pb-28 md:pb-10 max-w-7xl mx-auto w-full">
                     {{ $slot }}
