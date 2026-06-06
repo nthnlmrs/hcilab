@@ -28,7 +28,7 @@
                 <h2 class="font-serif text-3xl font-bold leading-tight mb-2">Welcome to<br>Singhasari<br>Museum</h2>
                 <p class="text-sm text-white/80 max-w-[80%] md:max-w-[60%] mb-4 leading-tight">Explore the historical heritage of Singhasari kingdom located in Malang, East Java.</p>
                 <div>
-                    <a href="#" class="inline-block px-4 py-1.5 border border-white rounded-full text-xs font-semibold hover:bg-white hover:text-museum-green transition-colors">More About Us</a>
+                    <a href="{{ route('about') }}" class="inline-block px-4 py-1.5 border border-white rounded-full text-xs font-semibold hover:bg-white hover:text-museum-green transition-colors">More About Us</a>
                 </div>
             </div>
 

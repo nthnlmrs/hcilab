@@ -31,6 +31,10 @@ Route::get('/scan', function () {
     return view('pages.scan');
 })->name('scan');
 
+Route::get('/about', function () {
+    return view('pages.about');
+})->name('about');
+
 // User Quiz Routes (Publicly accessible)
 Route::get('/quiz', [QuizController::class, 'index'])->name('quiz.index');
 Route::get('/quiz/{quiz}', [QuizController::class, 'show'])->name('quiz.show');
