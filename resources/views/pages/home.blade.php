@@ -1,93 +1,255 @@
 @section('section_name', 'Home')
 <x-app-layout>
-    <x-slot name="header">
-        <div>
-            <h1 class="font-serif text-3xl font-bold text-museum-green">Singhasari Museum</h1>
+    <div class="-mx-6 md:-mx-10 -mt-8 -mb-28 md:-mb-10 relative min-h-screen bg-[#d5c6b1]/40 overflow-hidden">
+        
+        <!-- Decorative Ellipse Blobs in Header Background -->
+        <div class="absolute w-64 h-64 rounded-full bg-[#1B4A47]/10 -top-10 -left-10 blur-2xl pointer-events-none"></div>
+        <div class="absolute w-80 h-80 rounded-full bg-[#B4853E]/10 top-20 right-10 blur-3xl pointer-events-none"></div>
+
+        <!-- Header Section (Top part of Home) -->
+        <div class="px-6 md:px-10 pt-8 pb-6 flex flex-col md:flex-row md:items-center justify-between gap-4 max-w-7xl mx-auto relative z-10">
+            <!-- Left Info -->
+            <div>
+                <p class="font-['Poppins'] font-medium text-lg text-gray-700 leading-tight">Selamat Datang ke</p>
+                <h1 class="font-['Poppins'] font-bold text-2xl md:text-3xl text-[#1b4a47] leading-tight mt-1">Museum Singhasari</h1>
+            </div>
+
+            <!-- Right Controls: Notification and Avatar -->
+            <div class="flex items-center gap-3 self-end md:self-center">
+                <!-- Notification Bell -->
+                <button onclick="alert('Belum ada notifikasi baru.')" class="w-11 h-11 rounded-full bg-white flex items-center justify-center text-[#1b4a47] shadow-sm hover:scale-105 active:scale-95 transition-all">
+                    <i class="far fa-bell text-lg"></i>
+                </button>
+                <!-- Profile Avatar -->
+                <a href="{{ route('profile.edit') }}" class="w-11 h-11 rounded-full border-2 border-white overflow-hidden shadow-md hover:scale-105 active:scale-95 transition-all block">
+                    <img src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name ?? 'Guest') }}&background=1B4A47&color=fff&size=96" alt="Profile" class="w-full h-full object-cover">
+                </a>
+            </div>
         </div>
-        <a href="{{ route('profile.edit') }}" class="w-10 h-10 rounded-full bg-gray-300 overflow-hidden border-2 border-white shadow-sm flex-shrink-0">
-            <img src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name ?? 'Guest') }}&background=004d40&color=fff" alt="Profile" class="w-full h-full object-cover">
-        </a>
-    </x-slot>
 
-    <!-- Search Bar -->
-    <div class="mb-6 mt-2 relative">
-        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <i class="fas fa-search text-gray-400"></i>
+        <!-- Search Bar Section -->
+        <div class="px-6 md:px-10 pb-8 max-w-7xl mx-auto relative z-10">
+            <div class="relative w-full max-w-md">
+                <span class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                    <i class="fas fa-search text-[#1b4a47]/60"></i>
+                </span>
+                <input type="text" placeholder="Cari..." class="w-full bg-white pl-11 pr-4 py-3 border-0 rounded-2xl shadow-sm placeholder-[#1b4a47]/50 text-[#1b4a47] font-medium focus:ring-1 focus:ring-[#1b4a47] focus:outline-none transition-all">
+            </div>
         </div>
-        <input type="text" class="block w-full pl-10 pr-3 py-2 border border-museum-green/30 rounded-full bg-transparent placeholder-museum-green/50 text-museum-green focus:outline-none focus:ring-1 focus:ring-museum-green focus:border-museum-green sm:text-sm" placeholder="Search">
-    </div>
 
-    <!-- Main Content Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-        <!-- Welcome Section (Spans 2 columns on lg screens) -->
-        <div class="bg-museum-green rounded-3xl p-6 text-white shadow-lg relative overflow-hidden lg:col-span-2">
-            <div class="absolute top-0 right-0 w-32 h-32 bg-white opacity-5 rounded-full -mr-10 -mt-10"></div>
-            <div class="absolute bottom-0 left-0 w-24 h-24 bg-white opacity-5 rounded-full -ml-8 -mb-8"></div>
+        <!-- White Portal Section (Overlapping card) -->
+        <div class="relative z-10 bg-white rounded-t-[30px] pt-8 pb-32">
+            <div class="max-w-4xl mx-auto px-6">
+                
+                <!-- Section: Kunjungi Museum -->
+                <div class="mb-8">
+                    <div class="mb-4">
+                        <h2 class="font-['Poppins'] font-semibold text-[#1b4a47] text-xl leading-tight">Kunjungi Museum</h2>
+                        <p class="font-['Poppins'] font-normal text-sm text-gray-500 mt-0.5">Lihat Tentang, Koleksi, Cerita Rakyat</p>
+                    </div>
 
-            <div class="relative z-10 flex flex-col h-auto md:h-48 justify-center">
-                <h2 class="font-serif text-3xl font-bold leading-tight mb-2">Welcome to<br>Singhasari<br>Museum</h2>
-                <p class="text-sm text-white/80 max-w-[80%] md:max-w-[60%] mb-4 leading-tight">Explore the historical heritage of Singhasari kingdom located in Malang, East Java.</p>
-                <div>
-                    <a href="{{ route('about') }}" class="inline-block px-4 py-1.5 border border-white rounded-full text-xs font-semibold hover:bg-white hover:text-museum-green transition-colors">More About Us</a>
+                    <!-- Horizontal Scroll Row -->
+                    <div class="flex gap-5 overflow-x-auto pb-4 scrollbar-none snap-x snap-mandatory">
+                        
+                        <!-- Card 1: Museum (About Page) -->
+                        <a href="{{ route('about') }}" class="snap-start flex-shrink-0 w-64 h-80 rounded-2xl relative overflow-hidden shadow-md group hover:scale-[1.01] active:scale-[0.99] transition-all cursor-pointer">
+                            <img src="{{ asset('images/about_hero.png') }}" class="absolute inset-0 w-full h-full object-cover" alt="Museum">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent z-10"></div>
+                            <div class="absolute inset-0 z-20 flex flex-col justify-end p-5 text-white">
+                                <h3 class="font-['Poppins'] font-bold text-lg leading-tight mb-1">Museum</h3>
+                                <p class="font-['Poppins'] font-normal text-xs text-white/80">Sejarah Museum & Informasi</p>
+                            </div>
+                        </a>
+
+                        <!-- Card 2: Koleksi (Statue Collections) -->
+                        <a href="{{ route('collection.index') }}" class="snap-start flex-shrink-0 w-64 h-80 rounded-2xl relative overflow-hidden shadow-md group hover:scale-[1.01] active:scale-[0.99] transition-all cursor-pointer">
+                            <img src="https://images.unsplash.com/photo-1596484552834-6a58f850d0a1?w=600&h=400&fit=crop" class="absolute inset-0 w-full h-full object-cover" alt="Koleksi">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent z-10"></div>
+                            <div class="absolute inset-0 z-20 flex flex-col justify-end p-5 text-white">
+                                <h3 class="font-['Poppins'] font-bold text-lg leading-tight mb-1">Koleksi</h3>
+                                <p class="font-['Poppins'] font-normal text-xs text-white/80">Patung dan artefak kuno</p>
+                            </div>
+                        </a>
+
+                        <!-- Card 3: Cerita Rakyat (Folklore Stories) -->
+                        <a href="{{ route('stories.index') }}" class="snap-start flex-shrink-0 w-64 h-80 rounded-2xl relative overflow-hidden shadow-md group hover:scale-[1.01] active:scale-[0.99] transition-all cursor-pointer">
+                            <img src="https://images.unsplash.com/photo-1518998053401-87891316b25f?w=600&h=400&fit=crop" class="absolute inset-0 w-full h-full object-cover" alt="Cerita Rakyat">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent z-10"></div>
+                            <div class="absolute inset-0 z-20 flex flex-col justify-end p-5 text-white">
+                                <h3 class="font-['Poppins'] font-bold text-lg leading-tight mb-1">Cerita Rakyat</h3>
+                                <p class="font-['Poppins'] font-normal text-xs text-white/80">Legenda Kerajaan</p>
+                            </div>
+                        </a>
+
+                    </div>
                 </div>
-            </div>
 
-            <div class="flex gap-2 mt-4 relative z-10">
-                <div class="h-16 md:h-24 flex-1 rounded-xl bg-white/20 overflow-hidden"><img src="https://images.unsplash.com/photo-1544928147-79a2dbc1f389?w=300&h=200&fit=crop" class="w-full h-full object-cover opacity-80" alt="Museum"></div>
-                <div class="h-16 md:h-24 flex-1 rounded-xl bg-white/20 overflow-hidden"><img src="https://images.unsplash.com/photo-1518998053401-87891316b25f?w=300&h=200&fit=crop" class="w-full h-full object-cover opacity-80" alt="Museum"></div>
-                <div class="h-16 md:h-24 flex-1 rounded-xl bg-white/20 overflow-hidden"><img src="https://images.unsplash.com/photo-1565544760596-f94da68f44ff?w=300&h=200&fit=crop" class="w-full h-full object-cover opacity-80" alt="Museum"></div>
-            </div>
-        </div>
+                <!-- Section: Berita Terbaru (Latest Event) -->
+                <div class="mb-10">
+                    <div class="mb-4">
+                        <h2 class="font-['Poppins'] font-semibold text-[#1b4a47] text-xl leading-tight">Berita Terbaru</h2>
+                        <p class="font-['Poppins'] font-normal text-sm text-gray-500 mt-0.5">Pembaruan, pameran, dan pengumuman</p>
+                    </div>
 
-        <!-- Events Section -->
-        <div class="bg-museum-green rounded-3xl p-5 shadow-lg h-full">
-            <h3 class="text-white text-sm font-semibold mb-4 uppercase tracking-wider">Upcoming Events</h3>
+                    @php
+                        $latestEvent = \App\Models\Event::latest()->first();
+                    @endphp
 
-            <div class="space-y-4">
-                @php
-                    $events = \App\Models\Event::latest()->take(3)->get();
-                @endphp
-                @forelse($events as $event)
-                <div class="relative h-24 md:h-32 rounded-2xl overflow-hidden group shadow-md">
-                    @if($event->image)
-                        <img src="{{ asset('storage/' . $event->image) }}" alt="{{ $event->title }}" class="w-full h-full object-cover">
+                    @if($latestEvent)
+                        <!-- Event High-Fidelity Card -->
+                        <div class="bg-[#f6f4ef] border border-[#EADFCB]/30 rounded-2xl overflow-hidden shadow-sm flex flex-col hover:shadow-md transition-shadow">
+                            <!-- Event Cover image -->
+                            <div class="h-48 md:h-56 w-full overflow-hidden bg-gray-100 relative">
+                                @if($latestEvent->image)
+                                    <img src="{{ asset('storage/' . $latestEvent->image) }}" class="w-full h-full object-cover" alt="{{ $latestEvent->title }}">
+                                @else
+                                    <div class="w-full h-full bg-museum-green/20 flex items-center justify-center text-[#1b4a47]/30">
+                                        <i class="fas fa-calendar-alt text-4xl"></i>
+                                    </div>
+                                @endif
+                            </div>
+
+                            <!-- Content details -->
+                            <div class="p-5 flex flex-col gap-4">
+                                <div>
+                                    <!-- Badge -->
+                                    <span class="inline-block bg-[#b4853e] text-[#FAF6EE] text-[9px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full mb-3 shadow-sm select-none">
+                                        Pameran Terbaru
+                                    </span>
+                                    <h3 class="font-['Poppins'] font-bold text-black text-lg leading-snug mb-2">{{ $latestEvent->title }}</h3>
+                                    <p class="font-['Poppins'] font-normal text-xs text-gray-500 leading-relaxed">{{ $latestEvent->description }}</p>
+                                </div>
+
+                                <!-- Date & Location row -->
+                                <div class="grid grid-cols-2 gap-4 border-t border-gray-200/50 pt-4 text-xs font-semibold text-gray-500">
+                                    <div class="flex items-center gap-2">
+                                        <i class="far fa-calendar-alt text-base text-[#1b4a47]"></i>
+                                        <div>
+                                            <p class="text-[9px] text-gray-400 font-normal uppercase tracking-wider">Tanggal</p>
+                                            <p class="text-[#1b4a47] font-bold text-[11px]">{{ $latestEvent->created_at->format('d M Y') }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-2 border-l border-gray-200/50 pl-4">
+                                        <i class="fas fa-map-marker-alt text-base text-[#1b4a47]"></i>
+                                        <div>
+                                            <p class="text-[9px] text-gray-400 font-normal uppercase tracking-wider">Lokasi</p>
+                                            <p class="text-[#1b4a47] font-bold text-[11px]">Galeri Utama</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Read More button -->
+                                <button onclick="alert('Kisah selengkapnya sedang dipersiapkan oleh tim kurator.')" class="bg-[#1b4a47] hover:bg-[#123937] text-white flex items-center justify-center gap-2 py-3.5 rounded-xl text-xs font-bold shadow-md hover:scale-[1.01] active:scale-[0.99] transition-all">
+                                    <span>Baca Selengkapnya</span>
+                                    <i class="fas fa-arrow-right text-[10px]"></i>
+                                </button>
+                            </div>
+                        </div>
                     @else
-                        <div class="w-full h-full bg-museum-darkGreen flex items-center justify-center">
-                             <i class="fas fa-calendar text-white opacity-20 text-4xl"></i>
+                        <!-- Fallback Event card if no events in database -->
+                        <div class="bg-[#f6f4ef] border border-[#EADFCB]/30 rounded-2xl overflow-hidden shadow-sm flex flex-col hover:shadow-md transition-shadow">
+                            <div class="h-48 md:h-56 w-full overflow-hidden bg-gray-100 relative">
+                                <img src="https://images.unsplash.com/photo-1596484552834-6a58f850d0a1?w=800&h=400&fit=crop" class="w-full h-full object-cover" alt="Heritage">
+                            </div>
+                            <div class="p-5 flex flex-col gap-4">
+                                <div>
+                                    <span class="inline-block bg-[#b4853e] text-[#FAF6EE] text-[9px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full mb-3 shadow-sm select-none">
+                                        Pameran Terbaru
+                                    </span>
+                                    <h3 class="font-['Poppins'] font-bold text-black text-lg leading-snug mb-2">Temukan Warisan Singhasari</h3>
+                                    <p class="font-['Poppins'] font-normal text-xs text-gray-500 leading-relaxed">Jelajahi artefak dan kisah baru yang mengungkap kejayaan Kerajaan Singhasari.</p>
+                                </div>
+                                <div class="grid grid-cols-2 gap-4 border-t border-gray-200/50 pt-4 text-xs font-semibold text-gray-500">
+                                    <div class="flex items-center gap-2">
+                                        <i class="far fa-calendar-alt text-base text-[#1b4a47]"></i>
+                                        <div>
+                                            <p class="text-[9px] text-gray-400 font-normal uppercase tracking-wider">Tanggal Pembukaan</p>
+                                            <p class="text-[#1b4a47] font-bold text-[11px]">20 Mei 2026</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-2 border-l border-gray-200/50 pl-4">
+                                        <i class="fas fa-map-marker-alt text-base text-[#1b4a47]"></i>
+                                        <div>
+                                            <p class="text-[9px] text-gray-400 font-normal uppercase tracking-wider">Lokasi</p>
+                                            <p class="text-[#1b4a47] font-bold text-[11px]">Galeri Utama</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button onclick="alert('Kisah selengkapnya sedang dipersiapkan oleh tim kurator.')" class="bg-[#1b4a47] hover:bg-[#123937] text-white flex items-center justify-center gap-2 py-3.5 rounded-xl text-xs font-bold shadow-md hover:scale-[1.01] active:scale-[0.99] transition-all">
+                                    <span>Baca Selengkapnya</span>
+                                    <i class="fas fa-arrow-right text-[10px]"></i>
+                                </button>
+                            </div>
                         </div>
                     @endif
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col items-center justify-center text-center p-4">
-                        <h4 class="font-serif text-white text-lg md:text-xl font-bold mb-1">{{ $event->title }}</h4>
-                        <a href="#" class="px-4 py-1 border border-white text-white text-[10px] uppercase font-black rounded-full hover:bg-white hover:text-museum-green transition-colors">Learn More</a>
-                    </div>
                 </div>
-                @empty
-                    <div class="text-white/60 text-center py-4 text-xs italic">
-                        No events scheduled at the moment.
-                    </div>
-                @endforelse
-            </div>
-        </div>
-    </div>
 
-    <!-- About Us Section -->
-    <div class="mb-4 bg-white/50 rounded-3xl p-6 shadow-sm">
-        <h3 class="font-serif text-2xl font-bold mb-3 text-museum-green">About Us</h3>
-        <div class="flex flex-col md:flex-row gap-6">
-            <div class="flex-1 text-sm leading-relaxed text-justify text-gray-700 order-2 md:order-1">
-                <p class="mb-2">Singhasari Museum is a general museum that was inaugurated on May 20, 2015. The land on which the museum was built was a donation from the owner of Singhasari Residence Housing. This museum is under the ownership of the Malang Regency Government and is managed by the Malang Regency Department of Culture and Tourism.</p>
-                
-                <div class="mt-6 space-y-2 bg-museum-beige/50 p-4 rounded-xl">
-                    <p class="flex items-center"><i class="fas fa-phone w-5 text-museum-brown"></i> 082137777325</p>
-                    <p class="flex items-center"><i class="fab fa-instagram w-5 text-museum-brown"></i> @museumsinghasari</p>
-                    <p class="mt-2"><span class="font-bold text-museum-green">OPEN:</span> Senin-Jumat 09.00-15.00</p>
-                    <p class="text-red-700 font-bold uppercase tracking-tighter">Closed: Saturday, Sunday, & Public Holidays</p>
-                    <p class="mt-2 text-gray-500 italic"><i class="fas fa-map-marker-alt w-5"></i> Desa Klampok, Kecamatan Singosari, 65153 Malang</p>
+                <!-- Section: Kegiatan (Full-width dark green panel) -->
+                <div class="bg-[#1b4a47] rounded-3xl p-6 text-white my-8 relative overflow-hidden shadow-lg">
+                    <!-- Diagonal Background panels matching Figma design -->
+                    <div class="absolute h-[600px] w-[183px] rotate-[147.05deg] right-[-50px] -top-10 opacity-10 pointer-events-none" style="background-image: linear-gradient(180deg, #1B4A47 16%, #0F2F2E 100%)"></div>
+                    <div class="absolute h-[670px] w-[166px] rotate-[-32.95deg] -left-10 -bottom-10 opacity-15 pointer-events-none" style="background-image: linear-gradient(180deg, #1B4A47 16%, #123937 100%)"></div>
+
+                    <!-- Header Titles -->
+                    <div class="relative z-10 mb-6">
+                        <h2 class="font-['Poppins'] font-bold text-xl leading-tight text-white">Kegiatan</h2>
+                        <p class="font-['Poppins'] font-normal text-sm text-[#d5c6b1] mt-0.5">Lokakarya, kegiatan, dan suvenir</p>
+                    </div>
+
+                    <!-- Activities Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
+                        
+                        <!-- Activity 1: Mask Painting -->
+                        <div class="bg-[#FAF6EE]/10 border border-white/10 rounded-2xl overflow-hidden flex flex-col justify-between h-[280px] p-5 relative">
+                            <!-- Image overlay back -->
+                            <img src="https://images.unsplash.com/photo-1544928147-79a2dbc1f389?w=400&h=300&fit=crop" class="absolute inset-0 w-full h-full object-cover object-bottom select-none z-0 opacity-20 pointer-events-none">
+                            <div class="absolute inset-0 bg-gradient-to-t from-[#0F2F2E] via-[#0F2F2E]/40 to-transparent z-0"></div>
+
+                            <!-- Header -->
+                            <div class="relative z-10 self-start">
+                                <span class="bg-white text-[#1b4a47] text-[9px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full shadow-sm">
+                                    Acara Lokakarya
+                                </span>
+                            </div>
+
+                            <!-- Content -->
+                            <div class="relative z-10 mt-auto">
+                                <h3 class="font-['Poppins'] font-bold text-lg leading-tight mb-1 text-white">Melukis Topeng</h3>
+                                <p class="font-['Poppins'] font-normal text-[11px] text-[#d5c6b1] leading-relaxed mb-4">Lukisan topeng kreatif & pengalaman budaya</p>
+                                <button onclick="alert('Pendaftaran lokakarya berhasil dibuka! Hubungi admin untuk detail jadwal.')" class="w-full bg-[#b4853e] hover:bg-[#a37735] text-white py-2.5 rounded-xl text-xs font-bold shadow-md active:scale-95 transition-all">
+                                    Ikuti Acara!
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Activity 2: Souvenirs -->
+                        <div class="bg-[#FAF6EE]/10 border border-white/10 rounded-2xl overflow-hidden flex flex-col justify-between h-[280px] p-5 relative">
+                            <!-- Image overlay back -->
+                            <img src="https://images.unsplash.com/photo-1518998053401-87891316b25f?w=400&h=300&fit=crop" class="absolute inset-0 w-full h-full object-cover object-bottom select-none z-0 opacity-20 pointer-events-none">
+                            <div class="absolute inset-0 bg-gradient-to-t from-[#0F2F2E] via-[#0F2F2E]/40 to-transparent z-0"></div>
+
+                            <!-- Header -->
+                            <div class="relative z-10 self-start">
+                                <span class="bg-white text-[#1b4a47] text-[9px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full shadow-sm">
+                                    Suvenir
+                                </span>
+                            </div>
+
+                            <!-- Content -->
+                            <div class="relative z-10 mt-auto">
+                                <h3 class="font-['Poppins'] font-bold text-lg leading-tight mb-1 text-white">Suvenir</h3>
+                                <p class="font-['Poppins'] font-normal text-[11px] text-[#d5c6b1] leading-relaxed mb-4">Kerajinan tradisional & suvenir lokal</p>
+                                <a href="{{ route('gallery') }}" class="w-full block text-center bg-[#b4853e] hover:bg-[#a37735] text-white py-2.5 rounded-xl text-xs font-bold shadow-md active:scale-95 transition-all">
+                                    Lihat Selengkapnya
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
-            </div>
-            <div class="w-full md:w-1/3 order-1 md:order-2 h-48 md:h-auto">
-                <img src="https://images.unsplash.com/photo-1596484552834-6a58f850d0a1?w=600&h=400&fit=crop" alt="Museum Building" class="w-full rounded-2xl object-cover h-full shadow-lg">
+
             </div>
         </div>
+
     </div>
 </x-app-layout>

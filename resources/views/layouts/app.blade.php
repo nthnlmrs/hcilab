@@ -53,6 +53,14 @@
                             <i class="fas fa-lightbulb text-lg w-6 text-center"></i>
                             <span x-show="!isCollapsed" x-transition.opacity class="font-bold">Quiz</span>
                         </a>
+                        <a href="{{ route('collection.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors {{ request()->routeIs('collection.index') ? 'bg-museum-green text-white shadow-md' : 'text-gray-600 hover:bg-museum-beige' }}">
+                            <i class="fas fa-shapes text-lg w-6 text-center"></i>
+                            <span x-show="!isCollapsed" x-transition.opacity class="font-bold">Collection</span>
+                        </a>
+                        <a href="{{ route('stories.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors {{ request()->routeIs('stories.*') ? 'bg-museum-green text-white shadow-md' : 'text-gray-600 hover:bg-museum-beige' }}">
+                            <i class="fas fa-book-open text-lg w-6 text-center"></i>
+                            <span x-show="!isCollapsed" x-transition.opacity class="font-bold">Stories</span>
+                        </a>
                         <a href="{{ route('gallery') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors {{ request()->routeIs('gallery') ? 'bg-museum-green text-white shadow-md' : 'text-gray-600 hover:bg-museum-beige' }}">
                             <i class="fas fa-images text-lg w-6 text-center"></i>
                             <span x-show="!isCollapsed" x-transition.opacity class="font-bold">Gallery</span>
@@ -80,6 +88,14 @@
                             <a href="{{ route('admin.events.create') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors {{ request()->routeIs('admin.events.create') ? 'bg-museum-green text-white shadow-md' : 'text-gray-600 hover:bg-museum-beige' }}">
                                 <i class="fas fa-calendar-plus text-lg w-6 text-center"></i>
                                 <span x-show="!isCollapsed" x-transition.opacity class="font-bold">Create Event</span>
+                            </a>
+                            <a href="{{ route('admin.collections.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors {{ request()->routeIs('admin.collections.*') ? 'bg-museum-green text-white shadow-md' : 'text-gray-600 hover:bg-museum-beige' }}">
+                                <i class="fas fa-shapes text-lg w-6 text-center"></i>
+                                <span x-show="!isCollapsed" x-transition.opacity class="font-bold">Manage Collections</span>
+                            </a>
+                            <a href="{{ route('admin.stories.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors {{ request()->routeIs('admin.stories.*') ? 'bg-museum-green text-white shadow-md' : 'text-gray-600 hover:bg-museum-beige' }}">
+                                <i class="fas fa-book-open text-lg w-6 text-center"></i>
+                                <span x-show="!isCollapsed" x-transition.opacity class="font-bold">Manage Stories</span>
                             </a>
                         </div>
                         @endif

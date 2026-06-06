@@ -1,11 +1,15 @@
 <?php
 
+use App\Http\Controllers\Admin\CollectionItemController as AdminCollectionItemController;
 use App\Http\Controllers\Admin\EventController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\QuizController as AdminQuizController;
+use App\Http\Controllers\Admin\StoryController as AdminStoryController;
+use App\Http\Controllers\CollectionItemController;
 use App\Http\Controllers\PageViewerController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuizController;
+use App\Http\Controllers\StoryController;
 use App\Http\Middleware\AdminMiddleware;
 use Illuminate\Support\Facades\Route;
 
@@ -34,6 +38,10 @@ Route::get('/scan', function () {
 Route::get('/about', function () {
     return view('pages.about');
 })->name('about');
+
+Route::get('/collection', [CollectionItemController::class, 'index'])->name('collection.index');
+Route::get('/stories', [StoryController::class, 'index'])->name('stories.index');
+Route::get('/stories/{story}', [StoryController::class, 'show'])->name('stories.show');
 
 // User Quiz Routes (Publicly accessible)
 Route::get('/quiz', [QuizController::class, 'index'])->name('quiz.index');
@@ -75,6 +83,24 @@ Route::middleware('auth')->group(function () {
             'create' => 'admin.events.create',
             'store' => 'admin.events.store',
             'destroy' => 'admin.events.destroy',
+        ]);
+
+        Route::resource('/admin/collections', AdminCollectionItemController::class)->names([
+            'index' => 'admin.collections.index',
+            'create' => 'admin.collections.create',
+            'store' => 'admin.collections.store',
+            'edit' => 'admin.collections.edit',
+            'update' => 'admin.collections.update',
+            'destroy' => 'admin.collections.destroy',
+        ]);
+
+        Route::resource('/admin/stories', AdminStoryController::class)->names([
+            'index' => 'admin.stories.index',
+            'create' => 'admin.stories.create',
+            'store' => 'admin.stories.store',
+            'edit' => 'admin.stories.edit',
+            'update' => 'admin.stories.update',
+            'destroy' => 'admin.stories.destroy',
         ]);
     });
 });
