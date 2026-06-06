@@ -92,10 +92,10 @@
                 class="flex-1 flex flex-col min-h-screen w-full transition-all duration-300">
                 
                 <!-- Top Navbar -->
-                <header class="flex items-center justify-between bg-white sticky top-0 z-40 px-6 md:px-8 py-4 border-b-2 border-gray-100 shadow-sm">
+                <header class="flex items-center justify-between bg-white sticky top-0 z-40 px-6 md:px-8 py-4 border-b border-gray-100">
                     <div class="flex items-center gap-4">
-                        <div class="bg-museum-green/10 px-4 py-1.5 rounded-lg border border-museum-green/20">
-                            <h2 class="text-sm font-black text-museum-green uppercase tracking-widest">
+                        <div>
+                            <h2 class="text-sm font-semibold text-museum-green tracking-widest uppercase">
                                 @yield('section_name', 'Dashboard')
                             </h2>
                         </div>
