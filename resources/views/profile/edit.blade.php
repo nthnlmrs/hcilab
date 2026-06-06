@@ -1,6 +1,6 @@
 @section('section_name', 'Profile Edit')
 <x-app-layout>
-    <div class="pt-6 pb-24 px-4 max-w-2xl mx-auto">
+    <div class="pt-6 pb-24 px-4 max-w-4xl mx-auto">
         <div class="flex items-center mb-10">
             <a href="{{ route('home') }}" class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-museum-green shadow-sm mr-4">
                 <i class="fas fa-arrow-left"></i>
