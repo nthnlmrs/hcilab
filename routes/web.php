@@ -14,7 +14,12 @@ use App\Http\Middleware\AdminMiddleware;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('pages.home');
+    $aboutPage = \App\Models\Page::where('slug', 'about')->first();
+    $koleksi = \App\Models\CollectionItem::latest()->first();
+    $cerita = \App\Models\Story::latest()->first();
+    $activities = \App\Models\Event::latest()->take(2)->get();
+
+    return view('pages.home', compact('aboutPage', 'koleksi', 'cerita', 'activities'));
 })->name('home');
 
 Route::get('/dashboard', function () {
@@ -22,7 +27,7 @@ Route::get('/dashboard', function () {
 })->name('dashboard');
 
 Route::get('/home', function () {
-    return view('pages.home');
+    return redirect()->route('home');
 });
 Route::get('/p/{slug}', [PageViewerController::class, 'show'])->name('page.show');
 Route::get('/map', function () {

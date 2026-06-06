@@ -57,17 +57,17 @@
                         
                         <!-- Card 1: Museum (About Page) -->
                         <a href="{{ route('about') }}" class="snap-start flex-shrink-0 w-64 h-80 rounded-2xl relative overflow-hidden shadow-md group hover:scale-[1.01] active:scale-[0.99] transition-all cursor-pointer">
-                            <img src="{{ asset('images/about_hero.png') }}" class="absolute inset-0 w-full h-full object-cover" alt="Museum">
+                            <img src="{{ isset($aboutPage) && $aboutPage->cover_image ? (str_starts_with($aboutPage->cover_image, 'http') ? $aboutPage->cover_image : asset($aboutPage->cover_image)) : asset('images/about_hero.png') }}" class="absolute inset-0 w-full h-full object-cover" alt="Museum">
                             <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent z-10"></div>
                             <div class="absolute inset-0 z-20 flex flex-col justify-end p-5 text-white">
-                                <h3 class="font-['Poppins'] font-bold text-lg leading-tight mb-1">Museum</h3>
-                                <p class="font-['Poppins'] font-normal text-xs text-white/80">Sejarah Museum & Informasi</p>
+                                <h3 class="font-['Poppins'] font-bold text-lg leading-tight mb-1">{{ isset($aboutPage) ? $aboutPage->title : 'Museum' }}</h3>
+                                <p class="font-['Poppins'] font-normal text-xs text-white/80">{{ isset($aboutPage) ? $aboutPage->description : 'Sejarah Museum & Informasi' }}</p>
                             </div>
                         </a>
 
                         <!-- Card 2: Koleksi (Statue Collections) -->
                         <a href="{{ route('collection.index') }}" class="snap-start flex-shrink-0 w-64 h-80 rounded-2xl relative overflow-hidden shadow-md group hover:scale-[1.01] active:scale-[0.99] transition-all cursor-pointer">
-                            <img src="{{ asset('images/koleksi_card.png') }}" class="absolute inset-0 w-full h-full object-cover" alt="Koleksi">
+                            <img src="{{ isset($koleksi) && $koleksi->image ? (str_starts_with($koleksi->image, 'http') ? $koleksi->image : asset($koleksi->image)) : asset('images/koleksi_card.png') }}" class="absolute inset-0 w-full h-full object-cover" alt="Koleksi">
                             <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent z-10"></div>
                             <div class="absolute inset-0 z-20 flex flex-col justify-end p-5 text-white">
                                 <h3 class="font-['Poppins'] font-bold text-lg leading-tight mb-1">Koleksi</h3>
@@ -77,7 +77,7 @@
 
                         <!-- Card 3: Cerita Rakyat (Folklore Stories) -->
                         <a href="{{ route('stories.index') }}" class="snap-start flex-shrink-0 w-64 h-80 rounded-2xl relative overflow-hidden shadow-md group hover:scale-[1.01] active:scale-[0.99] transition-all cursor-pointer">
-                            <img src="{{ asset('images/cerita_card.png') }}" class="absolute inset-0 w-full h-full object-cover" alt="Cerita Rakyat">
+                            <img src="{{ isset($cerita) && $cerita->image ? (str_starts_with($cerita->image, 'http') ? $cerita->image : asset($cerita->image)) : asset('images/cerita_card.png') }}" class="absolute inset-0 w-full h-full object-cover" alt="Cerita Rakyat">
                             <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent z-10"></div>
                             <div class="absolute inset-0 z-20 flex flex-col justify-end p-5 text-white">
                                 <h3 class="font-['Poppins'] font-bold text-lg leading-tight mb-1">Cerita Rakyat</h3>
@@ -202,53 +202,36 @@
 
                     <!-- Activities Grid -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
-                        
-                        <!-- Activity 1: Mask Painting -->
-                        <div class="bg-[#FAF6EE]/10 border border-white/10 rounded-2xl overflow-hidden flex flex-col justify-between h-[280px] p-5 relative">
-                            <!-- Image overlay back -->
-                            <img src="https://images.unsplash.com/photo-1544928147-79a2dbc1f389?w=400&h=300&fit=crop" class="absolute inset-0 w-full h-full object-cover object-bottom select-none z-0 opacity-20 pointer-events-none">
-                            <div class="absolute inset-0 bg-gradient-to-t from-[#0F2F2E] via-[#0F2F2E]/40 to-transparent z-0"></div>
+                        @if(isset($activities) && $activities->count() > 0)
+                            @foreach($activities as $index => $activity)
+                                <div class="bg-[#FAF6EE]/10 border border-white/10 rounded-2xl overflow-hidden flex flex-col justify-between h-[280px] p-5 relative">
+                                    <!-- Image overlay back -->
+                                    <img src="{{ $activity->image ? (str_starts_with($activity->image, 'http') ? $activity->image : asset('storage/' . $activity->image)) : 'https://images.unsplash.com/photo-1544928147-79a2dbc1f389?w=400&h=300&fit=crop' }}" class="absolute inset-0 w-full h-full object-cover object-bottom select-none z-0 opacity-20 pointer-events-none">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-[#0F2F2E] via-[#0F2F2E]/40 to-transparent z-0"></div>
 
-                            <!-- Header -->
-                            <div class="relative z-10 self-start">
-                                <span class="bg-white text-[#1b4a47] text-[9px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full shadow-sm">
-                                    Acara Lokakarya
-                                </span>
+                                    <!-- Header -->
+                                    <div class="relative z-10 self-start">
+                                        <span class="bg-white text-[#1b4a47] text-[9px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full shadow-sm">
+                                            Kegiatan
+                                        </span>
+                                    </div>
+
+                                    <!-- Content -->
+                                    <div class="relative z-10 mt-auto">
+                                        <h3 class="font-['Poppins'] font-bold text-lg leading-tight mb-1 text-white">{{ $activity->title }}</h3>
+                                        <p class="font-['Poppins'] font-normal text-[11px] text-[#d5c6b1] leading-relaxed mb-4">{{ Str::limit($activity->description, 60) }}</p>
+                                        <button onclick="alert('Pendaftaran {{ addslashes($activity->title) }} berhasil dibuka! Hubungi admin untuk detail jadwal.')" class="w-full bg-[#b4853e] hover:bg-[#a37735] text-white py-2.5 rounded-xl text-xs font-bold shadow-md active:scale-95 transition-all">
+                                            Ikuti Acara!
+                                        </button>
+                                    </div>
+                                </div>
+                            @endforeach
+                        @else
+                            <!-- Fallback if no activities -->
+                            <div class="bg-[#FAF6EE]/10 border border-white/10 rounded-2xl overflow-hidden flex flex-col justify-between h-[280px] p-5 relative col-span-2 text-center items-center justify-center">
+                                <p class="text-white">Belum ada kegiatan tersedia.</p>
                             </div>
-
-                            <!-- Content -->
-                            <div class="relative z-10 mt-auto">
-                                <h3 class="font-['Poppins'] font-bold text-lg leading-tight mb-1 text-white">Melukis Topeng</h3>
-                                <p class="font-['Poppins'] font-normal text-[11px] text-[#d5c6b1] leading-relaxed mb-4">Lukisan topeng kreatif & pengalaman budaya</p>
-                                <button onclick="alert('Pendaftaran lokakarya berhasil dibuka! Hubungi admin untuk detail jadwal.')" class="w-full bg-[#b4853e] hover:bg-[#a37735] text-white py-2.5 rounded-xl text-xs font-bold shadow-md active:scale-95 transition-all">
-                                    Ikuti Acara!
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- Activity 2: Souvenirs -->
-                        <div class="bg-[#FAF6EE]/10 border border-white/10 rounded-2xl overflow-hidden flex flex-col justify-between h-[280px] p-5 relative">
-                            <!-- Image overlay back -->
-                            <img src="https://images.unsplash.com/photo-1518998053401-87891316b25f?w=400&h=300&fit=crop" class="absolute inset-0 w-full h-full object-cover object-bottom select-none z-0 opacity-20 pointer-events-none">
-                            <div class="absolute inset-0 bg-gradient-to-t from-[#0F2F2E] via-[#0F2F2E]/40 to-transparent z-0"></div>
-
-                            <!-- Header -->
-                            <div class="relative z-10 self-start">
-                                <span class="bg-white text-[#1b4a47] text-[9px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full shadow-sm">
-                                    Suvenir
-                                </span>
-                            </div>
-
-                            <!-- Content -->
-                            <div class="relative z-10 mt-auto">
-                                <h3 class="font-['Poppins'] font-bold text-lg leading-tight mb-1 text-white">Suvenir</h3>
-                                <p class="font-['Poppins'] font-normal text-[11px] text-[#d5c6b1] leading-relaxed mb-4">Kerajinan tradisional & suvenir lokal</p>
-                                <a href="{{ route('gallery') }}" class="w-full block text-center bg-[#b4853e] hover:bg-[#a37735] text-white py-2.5 rounded-xl text-xs font-bold shadow-md active:scale-95 transition-all">
-                                    Lihat Selengkapnya
-                                </a>
-                            </div>
-                        </div>
-
+                        @endif
                     </div>
                 </div>
 
