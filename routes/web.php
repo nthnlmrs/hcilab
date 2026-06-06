@@ -53,6 +53,10 @@ Route::middleware('auth')->group(function () {
         Route::get('/admin/pages', [PageController::class, 'index'])->name('admin.pages.index');
         Route::get('/admin/pages/create', [PageController::class, 'create'])->name('admin.pages.create');
         Route::post('/admin/pages', [PageController::class, 'store'])->name('admin.pages.store');
+        Route::get('/admin/pages/{page}/edit', [PageController::class, 'edit'])->name('admin.pages.edit');
+        Route::put('/admin/pages/{page}', [PageController::class, 'update'])->name('admin.pages.update');
+        Route::delete('/admin/pages/{page}', [PageController::class, 'destroy'])->name('admin.pages.destroy');
+        Route::post('/admin/pages/{page}/toggle-status', [PageController::class, 'toggleStatus'])->name('admin.pages.toggleStatus');
 
         Route::get('/admin/quizzes', [AdminQuizController::class, 'index'])->name('admin.quizzes.index');
         Route::get('/admin/quizzes/create', [AdminQuizController::class, 'create'])->name('admin.quizzes.create');
