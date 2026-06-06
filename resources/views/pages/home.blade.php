@@ -16,10 +16,6 @@
 
             <!-- Right Controls: Notification and Avatar -->
             <div class="flex items-center gap-3 self-end md:self-center">
-                <!-- Notification Bell -->
-                <button onclick="alert('Belum ada notifikasi baru.')" class="w-11 h-11 rounded-full bg-white flex items-center justify-center text-[#1b4a47] shadow-sm hover:scale-105 active:scale-95 transition-all">
-                    <i class="far fa-bell text-lg"></i>
-                </button>
                 @auth
                     <!-- Profile Avatar -->
                     <a href="{{ route('profile.edit') }}" class="w-11 h-11 rounded-full border-2 border-white overflow-hidden shadow-md hover:scale-105 active:scale-95 transition-all block">
@@ -71,7 +67,7 @@
 
                         <!-- Card 2: Koleksi (Statue Collections) -->
                         <a href="{{ route('collection.index') }}" class="snap-start flex-shrink-0 w-64 h-80 rounded-2xl relative overflow-hidden shadow-md group hover:scale-[1.01] active:scale-[0.99] transition-all cursor-pointer">
-                            <img src="https://images.unsplash.com/photo-1596484552834-6a58f850d0a1?w=600&h=400&fit=crop" class="absolute inset-0 w-full h-full object-cover" alt="Koleksi">
+                            <img src="{{ asset('images/koleksi_card.png') }}" class="absolute inset-0 w-full h-full object-cover" alt="Koleksi">
                             <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent z-10"></div>
                             <div class="absolute inset-0 z-20 flex flex-col justify-end p-5 text-white">
                                 <h3 class="font-['Poppins'] font-bold text-lg leading-tight mb-1">Koleksi</h3>
@@ -81,7 +77,7 @@
 
                         <!-- Card 3: Cerita Rakyat (Folklore Stories) -->
                         <a href="{{ route('stories.index') }}" class="snap-start flex-shrink-0 w-64 h-80 rounded-2xl relative overflow-hidden shadow-md group hover:scale-[1.01] active:scale-[0.99] transition-all cursor-pointer">
-                            <img src="https://images.unsplash.com/photo-1518998053401-87891316b25f?w=600&h=400&fit=crop" class="absolute inset-0 w-full h-full object-cover" alt="Cerita Rakyat">
+                            <img src="{{ asset('images/cerita_card.png') }}" class="absolute inset-0 w-full h-full object-cover" alt="Cerita Rakyat">
                             <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent z-10"></div>
                             <div class="absolute inset-0 z-20 flex flex-col justify-end p-5 text-white">
                                 <h3 class="font-['Poppins'] font-bold text-lg leading-tight mb-1">Cerita Rakyat</h3>
