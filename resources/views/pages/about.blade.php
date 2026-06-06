@@ -2,8 +2,8 @@
 <x-app-layout>
     <div class="-mx-6 md:-mx-10 -mt-8 -mb-28 md:-mb-10 relative min-h-screen bg-white">
         
-        <!-- Hero Section (Full Width) -->
-        <div class="relative h-[250px] md:h-[350px] w-full overflow-hidden shadow-sm">
+        <!-- Hero Section (Full Width, Sticky) -->
+        <div class="sticky top-[73px] h-[250px] md:h-[350px] w-full overflow-hidden z-0 shadow-sm">
             <!-- Background Hero Photo -->
             <img src="{{ asset('images/about_hero.png') }}" class="absolute inset-0 w-full h-full object-cover object-center select-none" alt="Museum Singhasari Building">
             
