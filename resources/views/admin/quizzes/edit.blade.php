@@ -30,7 +30,7 @@
                             <input type="file" name="image" class="w-full text-xs text-gray-500">
                             @if($quiz->image)
                                 <div class="mt-2 text-[10px] text-gray-500 flex items-center gap-2">
-                                    <img src="{{ asset('storage/' . $quiz->image) }}" class="w-8 h-8 rounded object-cover">
+                                    <img src="{{ $quiz->image_url }}" class="w-8 h-8 rounded object-cover">
                                     <span>Current Image</span>
                                 </div>
                             @endif

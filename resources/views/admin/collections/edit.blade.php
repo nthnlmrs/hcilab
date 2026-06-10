@@ -37,7 +37,7 @@
                 <div>
                     <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Current Image</label>
                     @if($collection->image)
-                        <img src="{{ $collection->image }}" class="w-32 h-24 object-cover rounded-lg mb-2 shadow-sm border">
+                        <img src="{{ $collection->image_url }}" class="w-32 h-24 object-cover rounded-lg mb-2 shadow-sm border">
                     @endif
                     <input type="file" name="image" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-museum-green file:text-white hover:file:bg-museum-darkGreen">
                 </div>

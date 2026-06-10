@@ -81,5 +81,94 @@
                 Add Folklore Story
             </a>
         </div>
+
+        @if(session('success'))
+            <div class="bg-green-50 text-green-700 text-xs font-bold p-4 rounded-2xl mt-8 mb-2 border border-green-200">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        <h2 class="text-sm font-bold text-gray-500 uppercase tracking-widest mt-10 mb-4">Dashboard Card Cover Settings</h2>
+        <div class="bg-white rounded-3xl p-6 shadow-sm border border-gray-100 mb-8">
+            <p class="text-xs text-gray-500 mb-6">Manually upload or customize the background cover images of the guest dashboard navigation cards (Museum, Collections, and Stories).</p>
+            
+            <form action="{{ route('admin.settings.update') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
+                @csrf
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Museum Card Cover -->
+                    <div class="border border-gray-100 rounded-2xl p-4 bg-gray-50/50 flex flex-col justify-between">
+                        <div>
+                            <span class="text-xs font-black text-museum-green uppercase tracking-wider block mb-2">Museum Card Cover</span>
+                            <div class="w-full h-32 rounded-xl bg-gray-200 overflow-hidden mb-3 relative shadow-inner border border-gray-100">
+                                @php
+                                    $museumCover = \App\Models\Setting::get('dashboard_museum_image');
+                                    $museumCoverUrl = $museumCover ? asset('storage/' . $museumCover) : asset('images/about_hero.png');
+                                @endphp
+                                <img src="{{ $museumCoverUrl }}" class="w-full h-full object-cover">
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <input type="file" name="dashboard_museum_image" class="w-full text-xs text-gray-500 file:mr-2 file:py-1 file:px-3 file:rounded-full file:border-0 file:text-[10px] file:font-bold file:bg-museum-green file:text-white hover:file:bg-museum-darkGreen cursor-pointer">
+                            @if($museumCover)
+                                <label class="inline-flex items-center text-xs text-red-500 font-semibold cursor-pointer">
+                                    <input type="checkbox" name="delete_dashboard_museum_image" value="1" class="rounded text-red-500 mr-2 focus:ring-red-400"> Reset to Default
+                                </label>
+                            @endif
+                        </div>
+                    </div>
+
+                    <!-- Collections Card Cover -->
+                    <div class="border border-gray-100 rounded-2xl p-4 bg-gray-50/50 flex flex-col justify-between">
+                        <div>
+                            <span class="text-xs font-black text-museum-green uppercase tracking-wider block mb-2">Collections Card Cover</span>
+                            <div class="w-full h-32 rounded-xl bg-gray-200 overflow-hidden mb-3 relative shadow-inner border border-gray-100">
+                                @php
+                                    $collectionsCover = \App\Models\Setting::get('dashboard_collections_image');
+                                    $collectionsCoverUrl = $collectionsCover ? asset('storage/' . $collectionsCover) : (\App\Models\CollectionItem::latest()->first()?->image_url ?? asset('images/koleksi_card.png'));
+                                @endphp
+                                <img src="{{ $collectionsCoverUrl }}" class="w-full h-full object-cover">
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <input type="file" name="dashboard_collections_image" class="w-full text-xs text-gray-500 file:mr-2 file:py-1 file:px-3 file:rounded-full file:border-0 file:text-[10px] file:font-bold file:bg-museum-green file:text-white hover:file:bg-museum-darkGreen cursor-pointer">
+                            @if($collectionsCover)
+                                <label class="inline-flex items-center text-xs text-red-500 font-semibold cursor-pointer">
+                                    <input type="checkbox" name="delete_dashboard_collections_image" value="1" class="rounded text-red-500 mr-2 focus:ring-red-400"> Reset to Default
+                                </label>
+                            @endif
+                        </div>
+                    </div>
+
+                    <!-- Stories Card Cover -->
+                    <div class="border border-gray-100 rounded-2xl p-4 bg-gray-50/50 flex flex-col justify-between">
+                        <div>
+                            <span class="text-xs font-black text-museum-green uppercase tracking-wider block mb-2">Stories Card Cover</span>
+                            <div class="w-full h-32 rounded-xl bg-gray-200 overflow-hidden mb-3 relative shadow-inner border border-gray-100">
+                                @php
+                                    $storiesCover = \App\Models\Setting::get('dashboard_stories_image');
+                                    $storiesCoverUrl = $storiesCover ? asset('storage/' . $storiesCover) : (\App\Models\Story::latest()->first()?->image_url ?? asset('images/cerita_card.png'));
+                                @endphp
+                                <img src="{{ $storiesCoverUrl }}" class="w-full h-full object-cover">
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <input type="file" name="dashboard_stories_image" class="w-full text-xs text-gray-500 file:mr-2 file:py-1 file:px-3 file:rounded-full file:border-0 file:text-[10px] file:font-bold file:bg-museum-green file:text-white hover:file:bg-museum-darkGreen cursor-pointer">
+                            @if($storiesCover)
+                                <label class="inline-flex items-center text-xs text-red-500 font-semibold cursor-pointer">
+                                    <input type="checkbox" name="delete_dashboard_stories_image" value="1" class="rounded text-red-500 mr-2 focus:ring-red-400"> Reset to Default
+                                </label>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pt-4 border-t border-gray-50 flex justify-end">
+                    <button type="submit" class="px-6 py-3 bg-museum-green text-white rounded-2xl font-bold shadow-md hover:bg-museum-darkGreen hover:scale-[1.01] active:scale-[0.99] transition-all">
+                        SAVE COVER SETTINGS
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
 </x-app-layout>

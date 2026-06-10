@@ -38,12 +38,12 @@
                 <!-- Scene Description Card -->
                 <div class="bg-white rounded-3xl p-6 shadow-sm border border-gray-100 flex gap-4 items-start">
                     <div class="w-12 h-12 rounded-2xl bg-museum-green/10 flex items-center justify-center text-museum-green flex-shrink-0">
-                        <i id="room-info-icon" class="fas fa-door-open text-xl"></i>
+                        <i id="room-info-icon" class="fas fa-leaf text-xl"></i>
                     </div>
                     <div>
-                        <h3 id="room-info-title" class="font-serif text-lg font-bold text-museum-green">Halaman Depan (Pintu Masuk)</h3>
+                        <h3 id="room-info-title" class="font-serif text-lg font-bold text-museum-green">Taman Singhasari</h3>
                         <p id="room-info-desc" class="text-sm text-gray-600 mt-1 leading-relaxed">
-                            Pintu masuk utama Museum Singhasari yang menyambut para pengunjung dengan latar belakang bangunan megah berasitektur khas Jawa Timur.
+                            Area terbuka hijau di bagian belakang museum yang asri, cocok untuk bersantai dan menikmati suasana tenang setelah berkeliling.
                         </p>
                     </div>
                 </div>
@@ -227,7 +227,7 @@
                 // Base Config
                 const config = {
                     "default": {
-                        "firstScene": "front1",
+                        "firstScene": "garden",
                         "author": "Museum Singhasari",
                         "autoLoad": true,
                         "autoRotate": -1,
@@ -461,7 +461,7 @@
                 });
 
                 // Sync the UI initially
-                syncUIState('front1');
+                syncUIState('garden');
 
             } catch (error) {
                 console.error("Pannellum initialization failed:", error);

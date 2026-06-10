@@ -2,7 +2,12 @@
 
 namespace Database\Seeders;
 
+use App\Models\Choice;
 use App\Models\CollectionItem;
+use App\Models\Event;
+use App\Models\Page;
+use App\Models\Question;
+use App\Models\Quiz;
 use App\Models\Story;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -67,29 +72,41 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // Events
-        \App\Models\Event::create([
+        Event::create([
             'title' => 'Temukan Warisan Singhasari',
             'description' => 'Jelajahi artefak dan kisah baru yang mengungkap kejayaan Kerajaan Singhasari. Pameran khusus minggu ini.',
             'image' => 'images/about_hero.png',
+            'category' => 'Pameran Terbaru',
+            'event_date' => '2026-05-20',
+            'location' => 'Galeri Utama',
+            'duration' => '3 Bulan',
             'created_at' => now()->subDays(1),
         ]);
 
-        \App\Models\Event::create([
+        Event::create([
             'title' => 'Melukis Topeng',
             'description' => 'Lukisan topeng kreatif & pengalaman budaya',
             'image' => 'https://images.unsplash.com/photo-1544928147-79a2dbc1f389?w=400&h=300&fit=crop',
+            'category' => 'Kegiatan',
+            'event_date' => '2026-06-15',
+            'location' => 'Pendopo Luar',
+            'duration' => '1 Hari',
             'created_at' => now()->subDays(2),
         ]);
 
-        \App\Models\Event::create([
+        Event::create([
             'title' => 'Suvenir',
             'description' => 'Kerajinan tradisional & suvenir lokal',
             'image' => 'https://images.unsplash.com/photo-1518998053401-87891316b25f?w=400&h=300&fit=crop',
+            'category' => 'Suvenir',
+            'event_date' => '2026-06-20',
+            'location' => 'Toko Museum',
+            'duration' => 'Permanen',
             'created_at' => now()->subDays(3),
         ]);
 
         // Pages
-        \App\Models\Page::create([
+        Page::create([
             'title' => 'About Museum',
             'slug' => 'about',
             'description' => 'Sejarah Museum & Informasi',
@@ -98,32 +115,32 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // Quizzes
-        $quiz = \App\Models\Quiz::create([
+        $quiz = Quiz::create([
             'title' => 'Kuis Sejarah Singhasari',
             'description' => 'Uji pengetahuanmu tentang sejarah Kerajaan Singhasari.',
             'status' => 'published',
             'image' => 'images/quiz_statue.png',
         ]);
 
-        $q1 = \App\Models\Question::create([
+        $q1 = Question::create([
             'quiz_id' => $quiz->id,
             'text' => 'Siapa pendiri Kerajaan Singhasari?',
             'points' => 10,
         ]);
-        \App\Models\Choice::create(['question_id' => $q1->id, 'text' => 'Ken Arok', 'is_correct' => true]);
-        \App\Models\Choice::create(['question_id' => $q1->id, 'text' => 'Kertanegara', 'is_correct' => false]);
-        \App\Models\Choice::create(['question_id' => $q1->id, 'text' => 'Anusapati', 'is_correct' => false]);
-        \App\Models\Choice::create(['question_id' => $q1->id, 'text' => 'Tohjaya', 'is_correct' => false]);
+        Choice::create(['question_id' => $q1->id, 'text' => 'Ken Arok', 'is_correct' => true]);
+        Choice::create(['question_id' => $q1->id, 'text' => 'Kertanegara', 'is_correct' => false]);
+        Choice::create(['question_id' => $q1->id, 'text' => 'Anusapati', 'is_correct' => false]);
+        Choice::create(['question_id' => $q1->id, 'text' => 'Tohjaya', 'is_correct' => false]);
 
-        $q2 = \App\Models\Question::create([
+        $q2 = Question::create([
             'quiz_id' => $quiz->id,
             'text' => 'Raja terakhir Singhasari adalah?',
             'points' => 10,
         ]);
-        \App\Models\Choice::create(['question_id' => $q2->id, 'text' => 'Kertanegara', 'is_correct' => true]);
-        \App\Models\Choice::create(['question_id' => $q2->id, 'text' => 'Ranggawuni', 'is_correct' => false]);
-        \App\Models\Choice::create(['question_id' => $q2->id, 'text' => 'Jayakatwang', 'is_correct' => false]);
-        \App\Models\Choice::create(['question_id' => $q2->id, 'text' => 'Raden Wijaya', 'is_correct' => false]);
+        Choice::create(['question_id' => $q2->id, 'text' => 'Kertanegara', 'is_correct' => true]);
+        Choice::create(['question_id' => $q2->id, 'text' => 'Ranggawuni', 'is_correct' => false]);
+        Choice::create(['question_id' => $q2->id, 'text' => 'Jayakatwang', 'is_correct' => false]);
+        Choice::create(['question_id' => $q2->id, 'text' => 'Raden Wijaya', 'is_correct' => false]);
 
         // Stories
         Story::create([

@@ -44,7 +44,7 @@
                             <!-- Image Cover -->
                             <div class="h-44 md:h-52 w-full overflow-hidden bg-gray-100 relative">
                                 @if($story->image)
-                                    <img src="{{ $story->image }}" class="w-full h-full object-cover" alt="{{ $story->title }}">
+                                    <img src="{{ $story->image_url }}" class="w-full h-full object-cover" alt="{{ $story->title }}">
                                 @else
                                     <div class="w-full h-full flex items-center justify-center text-gray-300">
                                         <i class="fas fa-book-open text-4xl"></i>

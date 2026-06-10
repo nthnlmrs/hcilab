@@ -5,7 +5,7 @@
         <!-- Hero Cover Area -->
         <div class="sticky top-0 h-[260px] md:h-[360px] w-full overflow-hidden z-0 shadow-sm">
             @if($story->image)
-                <img src="{{ $story->image }}" class="absolute inset-0 w-full h-full object-cover object-center select-none" alt="{{ $story->title }}">
+                <img src="{{ $story->image_url }}" class="absolute inset-0 w-full h-full object-cover object-center select-none" alt="{{ $story->title }}">
             @else
                 <div class="absolute inset-0 bg-gradient-to-br from-[#1b4a47] to-[#0f2f2e]"></div>
             @endif

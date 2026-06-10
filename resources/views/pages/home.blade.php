@@ -47,17 +47,31 @@
                 
                 <!-- Section: Kunjungi Museum -->
                 <div class="mb-8">
-                    <div class="mb-4">
-                        <h2 class="font-['Poppins'] font-semibold text-[#1b4a47] text-xl leading-tight">Kunjungi Museum</h2>
-                        <p class="font-['Poppins'] font-normal text-sm text-gray-500 mt-0.5">Lihat Tentang, Koleksi, Cerita Rakyat</p>
+                    <div class="flex items-center justify-between mb-4">
+                        <div>
+                            <h2 class="font-['Poppins'] font-semibold text-[#1b4a47] text-xl leading-tight">Kunjungi Museum</h2>
+                            <p class="font-['Poppins'] font-normal text-sm text-gray-500 mt-0.5">Lihat Tentang, Koleksi, Cerita Rakyat</p>
+                        </div>
+                        <div class="flex gap-2">
+                            <button onclick="scrollLeftContainer('kunjungi-container')" class="w-8 h-8 rounded-full border border-[#1b4a47]/20 flex items-center justify-center text-[#1b4a47] hover:bg-[#1b4a47]/5 active:scale-90 transition-all focus:outline-none">
+                                <i class="fas fa-chevron-left text-xs"></i>
+                            </button>
+                            <button onclick="scrollRightContainer('kunjungi-container')" class="w-8 h-8 rounded-full border border-[#1b4a47]/20 flex items-center justify-center text-[#1b4a47] hover:bg-[#1b4a47]/5 active:scale-90 transition-all focus:outline-none">
+                                <i class="fas fa-chevron-right text-xs"></i>
+                            </button>
+                        </div>
                     </div>
 
                     <!-- Horizontal Scroll Row -->
-                    <div class="flex gap-5 overflow-x-auto pb-4 scrollbar-none snap-x snap-mandatory">
+                    <div id="kunjungi-container" class="flex gap-5 overflow-x-auto pb-4 scrollbar-none snap-x snap-mandatory cursor-grab active:cursor-grabbing select-none scroll-smooth">
                         
                         <!-- Card 1: Museum (About Page) -->
                         <a href="{{ route('about') }}" class="snap-start flex-shrink-0 w-64 h-80 rounded-2xl relative overflow-hidden shadow-md group hover:scale-[1.01] active:scale-[0.99] transition-all cursor-pointer">
-                            <img src="{{ isset($aboutPage) && $aboutPage->cover_image ? (str_starts_with($aboutPage->cover_image, 'http') ? $aboutPage->cover_image : asset($aboutPage->cover_image)) : asset('images/about_hero.png') }}" class="absolute inset-0 w-full h-full object-cover" alt="Museum">
+                            @php
+                                $customMuseumCover = \App\Models\Setting::get('dashboard_museum_image');
+                                $museumSrc = $customMuseumCover ? asset('storage/' . $customMuseumCover) : (isset($aboutPage) ? $aboutPage->cover_image_url : asset('images/about_hero.png'));
+                            @endphp
+                            <img src="{{ $museumSrc }}" class="absolute inset-0 w-full h-full object-cover" alt="Museum">
                             <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent z-10"></div>
                             <div class="absolute inset-0 z-20 flex flex-col justify-end p-5 text-white">
                                 <h3 class="font-['Poppins'] font-bold text-lg leading-tight mb-1">{{ isset($aboutPage) ? $aboutPage->title : 'Museum' }}</h3>
@@ -67,7 +81,11 @@
 
                         <!-- Card 2: Koleksi (Statue Collections) -->
                         <a href="{{ route('collection.index') }}" class="snap-start flex-shrink-0 w-64 h-80 rounded-2xl relative overflow-hidden shadow-md group hover:scale-[1.01] active:scale-[0.99] transition-all cursor-pointer">
-                            <img src="{{ isset($koleksi) && $koleksi->image ? (str_starts_with($koleksi->image, 'http') ? $koleksi->image : asset($koleksi->image)) : asset('images/koleksi_card.png') }}" class="absolute inset-0 w-full h-full object-cover" alt="Koleksi">
+                            @php
+                                $customCollectionsCover = \App\Models\Setting::get('dashboard_collections_image');
+                                $collectionsSrc = $customCollectionsCover ? asset('storage/' . $customCollectionsCover) : (isset($koleksi) ? $koleksi->image_url : asset('images/koleksi_card.png'));
+                            @endphp
+                            <img src="{{ $collectionsSrc }}" class="absolute inset-0 w-full h-full object-cover" alt="Koleksi">
                             <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent z-10"></div>
                             <div class="absolute inset-0 z-20 flex flex-col justify-end p-5 text-white">
                                 <h3 class="font-['Poppins'] font-bold text-lg leading-tight mb-1">Koleksi</h3>
@@ -77,7 +95,11 @@
 
                         <!-- Card 3: Cerita Rakyat (Folklore Stories) -->
                         <a href="{{ route('stories.index') }}" class="snap-start flex-shrink-0 w-64 h-80 rounded-2xl relative overflow-hidden shadow-md group hover:scale-[1.01] active:scale-[0.99] transition-all cursor-pointer">
-                            <img src="{{ isset($cerita) && $cerita->image ? (str_starts_with($cerita->image, 'http') ? $cerita->image : asset($cerita->image)) : asset('images/cerita_card.png') }}" class="absolute inset-0 w-full h-full object-cover" alt="Cerita Rakyat">
+                            @php
+                                $customStoriesCover = \App\Models\Setting::get('dashboard_stories_image');
+                                $storiesSrc = $customStoriesCover ? asset('storage/' . $customStoriesCover) : (isset($cerita) ? $cerita->image_url : asset('images/cerita_card.png'));
+                            @endphp
+                            <img src="{{ $storiesSrc }}" class="absolute inset-0 w-full h-full object-cover" alt="Cerita Rakyat">
                             <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent z-10"></div>
                             <div class="absolute inset-0 z-20 flex flex-col justify-end p-5 text-white">
                                 <h3 class="font-['Poppins'] font-bold text-lg leading-tight mb-1">Cerita Rakyat</h3>
@@ -90,102 +112,121 @@
 
                 <!-- Section: Berita Terbaru (Latest Event) -->
                 <div class="mb-10">
-                    <div class="mb-4">
-                        <h2 class="font-['Poppins'] font-semibold text-[#1b4a47] text-xl leading-tight">Berita Terbaru</h2>
-                        <p class="font-['Poppins'] font-normal text-sm text-gray-500 mt-0.5">Pembaruan, pameran, dan pengumuman</p>
+                    <div class="flex items-center justify-between mb-4">
+                        <div>
+                            <h2 class="font-['Poppins'] font-semibold text-[#1b4a47] text-xl leading-tight">Berita Terbaru</h2>
+                            <p class="font-['Poppins'] font-normal text-sm text-gray-500 mt-0.5">Pembaruan, pameran, dan pengumuman</p>
+                        </div>
+                        @if($events->count() > 1)
+                        <div class="flex gap-2">
+                            <button onclick="scrollLeftContainer('events-container')" class="w-8 h-8 rounded-full border border-[#1b4a47]/20 flex items-center justify-center text-[#1b4a47] hover:bg-[#1b4a47]/5 active:scale-90 transition-all focus:outline-none">
+                                <i class="fas fa-chevron-left text-xs"></i>
+                            </button>
+                            <button onclick="scrollRightContainer('events-container')" class="w-8 h-8 rounded-full border border-[#1b4a47]/20 flex items-center justify-center text-[#1b4a47] hover:bg-[#1b4a47]/5 active:scale-90 transition-all focus:outline-none">
+                                <i class="fas fa-chevron-right text-xs"></i>
+                            </button>
+                        </div>
+                        @endif
                     </div>
 
-                    @php
-                        $latestEvent = \App\Models\Event::latest()->first();
-                    @endphp
-
-                    @if($latestEvent)
-                        <!-- Event High-Fidelity Card -->
-                        <div class="bg-[#f6f4ef] border border-[#EADFCB]/30 rounded-2xl overflow-hidden shadow-sm flex flex-col hover:shadow-md transition-shadow">
-                            <!-- Event Cover image -->
-                            <div class="h-48 md:h-56 w-full overflow-hidden bg-gray-100 relative">
-                                @if($latestEvent->image)
-                                    <img src="{{ asset('storage/' . $latestEvent->image) }}" class="w-full h-full object-cover" alt="{{ $latestEvent->title }}">
-                                @else
-                                    <div class="w-full h-full bg-museum-green/20 flex items-center justify-center text-[#1b4a47]/30">
-                                        <i class="fas fa-calendar-alt text-4xl"></i>
-                                    </div>
-                                @endif
-                            </div>
-
-                            <!-- Content details -->
-                            <div class="p-5 flex flex-col gap-4">
+                    <!-- Horizontal Scroll Row for Events -->
+                    <div id="events-container" class="flex gap-5 overflow-x-auto pb-4 scrollbar-none snap-x snap-mandatory cursor-grab active:cursor-grabbing select-none scroll-smooth">
+                        @forelse($events as $event)
+                            <!-- Event High-Fidelity Card -->
+                            <div class="snap-start flex-shrink-0 w-80 rounded-2xl relative overflow-hidden bg-[#f6f4ef] border border-[#EADFCB]/30 flex flex-col justify-between hover:shadow-md transition-shadow">
                                 <div>
-                                    <!-- Badge -->
-                                    <span class="inline-block bg-[#b4853e] text-[#FAF6EE] text-[9px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full mb-3 shadow-sm select-none">
-                                        Pameran Terbaru
-                                    </span>
-                                    <h3 class="font-['Poppins'] font-bold text-black text-lg leading-snug mb-2">{{ $latestEvent->title }}</h3>
-                                    <p class="font-['Poppins'] font-normal text-xs text-gray-500 leading-relaxed">{{ $latestEvent->description }}</p>
-                                </div>
+                                    <!-- Event Cover image -->
+                                    <div class="h-44 w-full overflow-hidden bg-gray-100 relative">
+                                        @if($event->image)
+                                            <img src="{{ $event->image_url }}" class="w-full h-full object-cover pointer-events-none" alt="{{ $event->title }}">
+                                        @else
+                                            <div class="w-full h-full bg-museum-green/20 flex items-center justify-center text-[#1b4a47]/30">
+                                                <i class="fas fa-calendar-alt text-4xl"></i>
+                                            </div>
+                                        @endif
+                                    </div>
 
-                                <!-- Date & Location row -->
-                                <div class="grid grid-cols-2 gap-4 border-t border-gray-200/50 pt-4 text-xs font-semibold text-gray-500">
-                                    <div class="flex items-center gap-2">
-                                        <i class="far fa-calendar-alt text-base text-[#1b4a47]"></i>
+                                    <!-- Content details -->
+                                    <div class="p-5 flex flex-col gap-3">
                                         <div>
-                                            <p class="text-[9px] text-gray-400 font-normal uppercase tracking-wider">Tanggal</p>
-                                            <p class="text-[#1b4a47] font-bold text-[11px]">{{ $latestEvent->created_at->format('d M Y') }}</p>
+                                            <!-- Badge -->
+                                            <span class="inline-block bg-[#b4853e] text-[#FAF6EE] text-[9px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full mb-2 shadow-sm select-none">
+                                                {{ $event->category ?? 'Pameran Terbaru' }}
+                                            </span>
+                                            <h3 class="font-['Poppins'] font-bold text-black text-sm leading-snug mb-1 line-clamp-2" title="{{ $event->title }}">{{ $event->title }}</h3>
+                                            <p class="font-['Poppins'] font-normal text-xs text-gray-500 leading-relaxed line-clamp-2">{{ $event->description }}</p>
                                         </div>
                                     </div>
-                                    <div class="flex items-center gap-2 border-l border-gray-200/50 pl-4">
-                                        <i class="fas fa-map-marker-alt text-base text-[#1b4a47]"></i>
-                                        <div>
-                                            <p class="text-[9px] text-gray-400 font-normal uppercase tracking-wider">Lokasi</p>
-                                            <p class="text-[#1b4a47] font-bold text-[11px]">Galeri Utama</p>
-                                        </div>
-                                    </div>
                                 </div>
 
-                                <!-- Read More button -->
-                                <button onclick="alert('Kisah selengkapnya sedang dipersiapkan oleh tim kurator.')" class="bg-[#1b4a47] hover:bg-[#123937] text-white flex items-center justify-center gap-2 py-3.5 rounded-xl text-xs font-bold shadow-md hover:scale-[1.01] active:scale-[0.99] transition-all">
-                                    <span>Baca Selengkapnya</span>
-                                    <i class="fas fa-arrow-right text-[10px]"></i>
-                                </button>
+                                <div class="px-5 pb-5 pt-0 flex flex-col gap-3">
+                                    <!-- Date & Location row -->
+                                    <div class="grid grid-cols-2 gap-4 border-t border-gray-200/50 pt-3 text-[10px] font-semibold text-gray-500">
+                                        <div class="flex items-center gap-2">
+                                            <i class="far fa-calendar-alt text-base text-[#1b4a47]"></i>
+                                            <div>
+                                                <p class="text-[8px] text-gray-400 font-normal uppercase tracking-wider">Tanggal Pembukaan</p>
+                                                <p class="text-[#1b4a47] font-bold">{{ $event->event_date ? $event->event_date->translatedFormat('d F Y') : $event->created_at->translatedFormat('d F Y') }}</p>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-center gap-2 border-l border-gray-200/50 pl-3">
+                                            <i class="fas fa-map-marker-alt text-base text-[#1b4a47]"></i>
+                                            <div>
+                                                <p class="text-[8px] text-gray-400 font-normal uppercase tracking-wider">Lokasi</p>
+                                                <p class="text-[#1b4a47] font-bold truncate">{{ $event->location ?? 'Galeri Utama' }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Read More button -->
+                                    <a href="{{ route('events.show', $event) }}" class="bg-[#1b4a47] hover:bg-[#123937] text-white flex items-center justify-center gap-2 py-3 rounded-xl text-xs font-bold shadow-md hover:scale-[1.01] active:scale-[0.99] transition-all">
+                                        <span>Baca Selengkapnya</span>
+                                        <i class="fas fa-arrow-right text-[10px]"></i>
+                                    </a>
+                                </div>
                             </div>
-                        </div>
-                    @else
-                        <!-- Fallback Event card if no events in database -->
-                        <div class="bg-[#f6f4ef] border border-[#EADFCB]/30 rounded-2xl overflow-hidden shadow-sm flex flex-col hover:shadow-md transition-shadow">
-                            <div class="h-48 md:h-56 w-full overflow-hidden bg-gray-100 relative">
-                                <img src="https://images.unsplash.com/photo-1596484552834-6a58f850d0a1?w=800&h=400&fit=crop" class="w-full h-full object-cover" alt="Heritage">
-                            </div>
-                            <div class="p-5 flex flex-col gap-4">
+                        @empty
+                            <!-- Fallback Event card if no events in database -->
+                            <div class="snap-start flex-shrink-0 w-80 rounded-2xl relative overflow-hidden bg-[#f6f4ef] border border-[#EADFCB]/30 flex flex-col justify-between hover:shadow-md transition-shadow">
                                 <div>
-                                    <span class="inline-block bg-[#b4853e] text-[#FAF6EE] text-[9px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full mb-3 shadow-sm select-none">
-                                        Pameran Terbaru
-                                    </span>
-                                    <h3 class="font-['Poppins'] font-bold text-black text-lg leading-snug mb-2">Temukan Warisan Singhasari</h3>
-                                    <p class="font-['Poppins'] font-normal text-xs text-gray-500 leading-relaxed">Jelajahi artefak dan kisah baru yang mengungkap kejayaan Kerajaan Singhasari.</p>
-                                </div>
-                                <div class="grid grid-cols-2 gap-4 border-t border-gray-200/50 pt-4 text-xs font-semibold text-gray-500">
-                                    <div class="flex items-center gap-2">
-                                        <i class="far fa-calendar-alt text-base text-[#1b4a47]"></i>
-                                        <div>
-                                            <p class="text-[9px] text-gray-400 font-normal uppercase tracking-wider">Tanggal Pembukaan</p>
-                                            <p class="text-[#1b4a47] font-bold text-[11px]">20 Mei 2026</p>
-                                        </div>
+                                    <div class="h-44 w-full overflow-hidden bg-gray-100 relative">
+                                        <img src="https://images.unsplash.com/photo-1596484552834-6a58f850d0a1?w=800&h=400&fit=crop" class="w-full h-full object-cover pointer-events-none" alt="Heritage">
                                     </div>
-                                    <div class="flex items-center gap-2 border-l border-gray-200/50 pl-4">
-                                        <i class="fas fa-map-marker-alt text-base text-[#1b4a47]"></i>
+                                    <div class="p-5 flex flex-col gap-3">
                                         <div>
-                                            <p class="text-[9px] text-gray-400 font-normal uppercase tracking-wider">Lokasi</p>
-                                            <p class="text-[#1b4a47] font-bold text-[11px]">Galeri Utama</p>
+                                            <span class="inline-block bg-[#b4853e] text-[#FAF6EE] text-[9px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full mb-2 shadow-sm select-none">
+                                                Pameran Terbaru
+                                            </span>
+                                            <h3 class="font-['Poppins'] font-bold text-black text-sm leading-snug mb-1">Temukan Warisan Singhasari</h3>
+                                            <p class="font-['Poppins'] font-normal text-xs text-gray-500 leading-relaxed line-clamp-2">Jelajahi artefak dan kisah baru yang mengungkap kejayaan Kerajaan Singhasari.</p>
                                         </div>
                                     </div>
                                 </div>
-                                <button onclick="alert('Kisah selengkapnya sedang dipersiapkan oleh tim kurator.')" class="bg-[#1b4a47] hover:bg-[#123937] text-white flex items-center justify-center gap-2 py-3.5 rounded-xl text-xs font-bold shadow-md hover:scale-[1.01] active:scale-[0.99] transition-all">
-                                    <span>Baca Selengkapnya</span>
-                                    <i class="fas fa-arrow-right text-[10px]"></i>
-                                </button>
+                                <div class="px-5 pb-5 pt-0 flex flex-col gap-3">
+                                    <div class="grid grid-cols-2 gap-4 border-t border-gray-200/50 pt-3 text-[10px] font-semibold text-gray-500">
+                                        <div class="flex items-center gap-2">
+                                            <i class="far fa-calendar-alt text-base text-[#1b4a47]"></i>
+                                            <div>
+                                                <p class="text-[8px] text-gray-400 font-normal uppercase tracking-wider">Tanggal Pembukaan</p>
+                                                <p class="text-[#1b4a47] font-bold">20 Mei 2026</p>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-center gap-2 border-l border-gray-200/50 pl-3">
+                                            <i class="fas fa-map-marker-alt text-base text-[#1b4a47]"></i>
+                                            <div>
+                                                <p class="text-[8px] text-gray-400 font-normal uppercase tracking-wider">Lokasi</p>
+                                                <p class="text-[#1b4a47] font-bold">Galeri Utama</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button onclick="alert('Kisah selengkapnya sedang dipersiapkan oleh tim kurator.')" class="bg-[#1b4a47] hover:bg-[#123937] text-white flex items-center justify-center gap-2 py-3 rounded-xl text-xs font-bold shadow-md hover:scale-[1.01] active:scale-[0.99] transition-all">
+                                        <span>Baca Selengkapnya</span>
+                                        <i class="fas fa-arrow-right text-[10px]"></i>
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-                    @endif
+                        @endforelse
+                    </div>
                 </div>
 
                 <!-- Section: Kegiatan (Full-width dark green panel) -->
@@ -206,7 +247,7 @@
                             @foreach($activities as $index => $activity)
                                 <div class="bg-[#FAF6EE]/10 border border-white/10 rounded-2xl overflow-hidden flex flex-col justify-between h-[280px] p-5 relative">
                                     <!-- Image overlay back -->
-                                    <img src="{{ $activity->image ? (str_starts_with($activity->image, 'http') ? $activity->image : asset('storage/' . $activity->image)) : 'https://images.unsplash.com/photo-1544928147-79a2dbc1f389?w=400&h=300&fit=crop' }}" class="absolute inset-0 w-full h-full object-cover object-bottom select-none z-0 opacity-20 pointer-events-none">
+                                    <img src="{{ $activity->image_url }}" class="absolute inset-0 w-full h-full object-cover object-bottom select-none z-0 opacity-20 pointer-events-none">
                                     <div class="absolute inset-0 bg-gradient-to-t from-[#0F2F2E] via-[#0F2F2E]/40 to-transparent z-0"></div>
 
                                     <!-- Header -->
@@ -239,4 +280,107 @@
         </div>
 
     </div>
+
+    <style>
+        .scrollbar-none::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-none {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        /* Prevents user selection during drag */
+        .overflow-x-auto.cursor-grabbing {
+            user-select: none;
+        }
+    </style>
+
+    <script>
+        // Smooth scrolling for navigation buttons
+        function scrollLeftContainer(id) {
+            const container = document.getElementById(id);
+            if (container) {
+                container.scrollBy({ left: -320, behavior: 'smooth' });
+            }
+        }
+
+        function scrollRightContainer(id) {
+            const container = document.getElementById(id);
+            if (container) {
+                container.scrollBy({ left: 320, behavior: 'smooth' });
+            }
+        }
+
+        // Drag to scroll functionality for desktop mouse users
+        document.addEventListener('DOMContentLoaded', function() {
+            const sliders = document.querySelectorAll('.overflow-x-auto');
+            
+            sliders.forEach(slider => {
+                let isDown = false;
+                let startX;
+                let startY;
+                let scrollLeft;
+                let hasMoved = false;
+                const dragThreshold = 10; // min pixels offset to prevent clicks
+
+                slider.classList.add('cursor-grab');
+
+                slider.addEventListener('mousedown', (e) => {
+                    if (e.button !== 0) return; // only left click
+                    isDown = true;
+                    hasMoved = false;
+                    startX = e.pageX - slider.offsetLeft;
+                    startY = e.pageY - slider.offsetTop;
+                    scrollLeft = slider.scrollLeft;
+                    slider.classList.add('cursor-grabbing');
+                    slider.classList.remove('cursor-grab');
+                });
+
+                slider.addEventListener('mouseleave', () => {
+                    if (isDown) {
+                        isDown = false;
+                        slider.classList.remove('cursor-grabbing');
+                        slider.classList.add('cursor-grab');
+                    }
+                });
+
+                slider.addEventListener('mouseup', () => {
+                    if (isDown) {
+                        isDown = false;
+                        slider.classList.remove('cursor-grabbing');
+                        slider.classList.add('cursor-grab');
+                    }
+                });
+
+                // Capture click events and block them if we actually dragged the content
+                slider.addEventListener('click', (e) => {
+                    if (hasMoved) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        hasMoved = false;
+                    }
+                }, true); // true sets capture phase to block nested clicks
+
+                slider.addEventListener('mousemove', (e) => {
+                    if (!isDown) return;
+                    
+                    const x = e.pageX - slider.offsetLeft;
+                    const y = e.pageY - slider.offsetTop;
+                    const distanceX = Math.abs(x - startX);
+                    const distanceY = Math.abs(y - startY);
+
+                    // If dragged beyond threshold, mark it as moved
+                    if (distanceX > dragThreshold || distanceY > dragThreshold) {
+                        hasMoved = true;
+                    }
+
+                    if (hasMoved) {
+                        e.preventDefault();
+                        const walk = (x - startX) * 1.5;
+                        slider.scrollLeft = scrollLeft - walk;
+                    }
+                });
+            });
+        });
+    </script>
 </x-app-layout>

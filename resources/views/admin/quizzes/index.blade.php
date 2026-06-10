@@ -13,7 +13,7 @@
                 <div class="bg-white rounded-2xl p-4 shadow-sm flex items-center gap-4">
                     <div class="w-16 h-16 rounded-xl bg-gray-100 overflow-hidden flex-shrink-0">
                         @if($quiz->image)
-                            <img src="{{ asset('storage/' . $quiz->image) }}" class="w-full h-full object-cover">
+                            <img src="{{ $quiz->image_url }}" class="w-full h-full object-cover">
                         @else
                             <div class="w-full h-full flex items-center justify-center text-gray-300">
                                 <i class="fas fa-question-circle"></i>

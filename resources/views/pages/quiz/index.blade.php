@@ -50,7 +50,7 @@
                             <a href="{{ route('quiz.show', $quiz) }}" class="group block bg-[#FCF9F3] border border-[#EADFCB] rounded-[24px] p-5 shadow-soft hover:shadow-md transition-all duration-300 transform hover:-translate-y-0.5 flex items-center gap-5">
                                 <div class="w-20 h-20 rounded-2xl bg-[#EADFCB]/30 border border-[#EADFCB]/50 overflow-hidden flex-shrink-0 relative group-hover:scale-105 transition-transform duration-300 shadow-inner">
                                     @if($quiz->image)
-                                        <img src="{{ asset('storage/' . $quiz->image) }}" class="w-full h-full object-cover">
+                                        <img src="{{ $quiz->image_url }}" class="w-full h-full object-cover">
                                     @else
                                         <div class="w-full h-full flex items-center justify-center text-[#8A5A3C]/40">
                                             <i class="fas fa-question text-3xl"></i>

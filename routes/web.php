@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\CollectionItemController as AdminCollectionItemCo
 use App\Http\Controllers\Admin\EventController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\QuizController as AdminQuizController;
+use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\StoryController as AdminStoryController;
 use App\Http\Controllers\CollectionItemController;
 use App\Http\Controllers\PageViewerController;
@@ -11,15 +12,20 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\StoryController;
 use App\Http\Middleware\AdminMiddleware;
+use App\Models\CollectionItem;
+use App\Models\Event;
+use App\Models\Page;
+use App\Models\Story;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    $aboutPage = \App\Models\Page::where('slug', 'about')->first();
-    $koleksi = \App\Models\CollectionItem::latest()->first();
-    $cerita = \App\Models\Story::latest()->first();
-    $activities = \App\Models\Event::latest()->take(2)->get();
+    $aboutPage = Page::where('slug', 'about')->first();
+    $koleksi = CollectionItem::latest()->first();
+    $cerita = Story::latest()->first();
+    $activities = Event::latest()->take(2)->get();
+    $events = Event::latest()->get();
 
-    return view('pages.home', compact('aboutPage', 'koleksi', 'cerita', 'activities'));
+    return view('pages.home', compact('aboutPage', 'koleksi', 'cerita', 'activities', 'events'));
 })->name('home');
 
 Route::get('/dashboard', function () {
@@ -33,6 +39,7 @@ Route::get('/p/{slug}', [PageViewerController::class, 'show'])->name('page.show'
 Route::get('/map', function () {
     return view('pages.map');
 })->name('map');
+Route::get('/events/{event}', [App\Http\Controllers\EventController::class, 'show'])->name('events.show');
 Route::get('/gallery', function () {
     return view('pages.dummy', ['title' => 'Gallery', 'icon' => 'fas fa-images']);
 })->name('gallery');
@@ -67,6 +74,8 @@ Route::middleware('auth')->group(function () {
             return view('admin.dashboard');
         })->name('admin.dashboard');
 
+        Route::post('/admin/settings', [SettingController::class, 'update'])->name('admin.settings.update');
+
         Route::get('/admin/pages', [PageController::class, 'index'])->name('admin.pages.index');
         Route::get('/admin/pages/create', [PageController::class, 'create'])->name('admin.pages.create');
         Route::post('/admin/pages', [PageController::class, 'store'])->name('admin.pages.store');
@@ -87,6 +96,8 @@ Route::middleware('auth')->group(function () {
             'index' => 'admin.events.index',
             'create' => 'admin.events.create',
             'store' => 'admin.events.store',
+            'edit' => 'admin.events.edit',
+            'update' => 'admin.events.update',
             'destroy' => 'admin.events.destroy',
         ]);
 

@@ -18,6 +18,26 @@
                 </div>
 
                 <div>
+                    <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Category / Badge</label>
+                    <input type="text" name="category" class="w-full rounded-xl border-gray-300" placeholder="e.g., Pameran Terbaru, Pengumuman">
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Event Date</label>
+                        <input type="date" name="event_date" class="w-full rounded-xl border-gray-300">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Location</label>
+                        <input type="text" name="location" class="w-full rounded-xl border-gray-300" placeholder="e.g., Galeri Utama">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Duration</label>
+                        <input type="text" name="duration" class="w-full rounded-xl border-gray-300" placeholder="e.g., 3 Bulan">
+                    </div>
+                </div>
+
+                <div>
                     <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Description</label>
                     <textarea name="description" rows="4" class="w-full rounded-xl border-gray-300" placeholder="Describe the event..."></textarea>
                 </div>

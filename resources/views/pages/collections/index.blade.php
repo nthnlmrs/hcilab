@@ -44,7 +44,7 @@
                             <!-- Image wrapper -->
                             <div class="w-32 h-24 rounded-xl overflow-hidden flex-shrink-0 bg-[#FAF6EE] border border-gray-100 flex items-center justify-center">
                                 @if($item->image)
-                                    <img src="{{ $item->image }}" class="w-full h-full object-cover" alt="{{ $item->title }}">
+                                    <img src="{{ $item->image_url }}" class="w-full h-full object-cover" alt="{{ $item->title }}">
                                 @else
                                     <i class="fas fa-shapes text-3xl text-gray-300"></i>
                                 @endif

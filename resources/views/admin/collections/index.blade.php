@@ -14,7 +14,8 @@
             </div>
         @endif
 
-        <div class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
+        <!-- Desktop Table View -->
+        <div class="hidden md:block bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
             <div class="overflow-x-auto">
                 <table class="min-w-full divide-y divide-gray-100">
                     <thead class="bg-gray-50">
@@ -32,7 +33,7 @@
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="w-16 h-12 rounded-lg bg-gray-100 overflow-hidden">
                                         @if($item->image)
-                                            <img src="{{ $item->image }}" class="w-full h-full object-cover">
+                                            <img src="{{ $item->image_url }}" class="w-full h-full object-cover">
                                         @else
                                             <div class="w-full h-full flex items-center justify-center text-gray-300">
                                                 <i class="fas fa-image"></i>
@@ -48,8 +49,10 @@
                                         {{ $item->category }}
                                     </span>
                                 </td>
-                                <td class="px-6 py-4 text-xs text-gray-500 max-w-xs truncate">
-                                    {{ $item->description }}
+                                <td class="px-6 py-4 text-xs text-gray-500 max-w-xs">
+                                    <div class="truncate max-w-xs" title="{{ $item->description }}">
+                                        {{ $item->description }}
+                                    </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm space-x-2">
                                     <a href="{{ route('admin.collections.edit', $item) }}" class="text-museum-green hover:text-museum-darkGreen"><i class="fas fa-edit"></i></a>
@@ -70,6 +73,53 @@
                     </tbody>
                 </table>
             </div>
+        </div>
+
+        <!-- Mobile Card List View -->
+        <div class="block md:hidden space-y-4">
+            @forelse($collections as $item)
+                <div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 flex flex-col gap-3 relative">
+                    <div class="flex gap-4">
+                        <!-- Image -->
+                        <div class="w-20 h-16 rounded-xl bg-gray-100 overflow-hidden flex-shrink-0">
+                            @if($item->image)
+                                <img src="{{ $item->image_url }}" class="w-full h-full object-cover">
+                            @else
+                                <div class="w-full h-full flex items-center justify-center text-gray-300">
+                                    <i class="fas fa-image"></i>
+                                </div>
+                            @endif
+                        </div>
+                        
+                        <!-- Text description -->
+                        <div class="flex-1 min-w-0">
+                            <span class="inline-block px-2.5 py-1 rounded-full text-[9px] font-black uppercase tracking-wider bg-museum-beige text-museum-green mb-1">
+                                {{ $item->category }}
+                            </span>
+                            <h3 class="font-bold text-museum-green text-sm truncate">{{ $item->title }}</h3>
+                            <p class="text-xs text-gray-400 line-clamp-1 mt-0.5">{{ $item->description }}</p>
+                        </div>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="flex justify-end gap-4 pt-3 border-t border-gray-50">
+                        <a href="{{ route('admin.collections.edit', $item) }}" class="flex items-center gap-1.5 text-xs font-bold text-museum-green hover:underline">
+                            <i class="fas fa-edit text-xs"></i> Edit
+                        </a>
+                        <form action="{{ route('admin.collections.destroy', $item) }}" method="POST" class="inline-block">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" onclick="return confirm('Are you sure?')" class="flex items-center gap-1.5 text-xs font-bold text-red-400 hover:text-red-600">
+                                <i class="fas fa-trash-alt text-xs"></i> Hapus
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            @empty
+                <div class="bg-white rounded-2xl p-8 shadow-sm text-center">
+                    <p class="text-gray-400 text-sm">No collection items found.</p>
+                </div>
+            @endforelse
         </div>
     </div>
 </x-app-layout>
