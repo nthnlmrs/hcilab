@@ -68,15 +68,27 @@
 
                 <!-- Call to Actions -->
                 <div class="flex flex-col gap-3 mb-8">
-                    <a href="{{ route('about') }}" class="w-full bg-[#1b4a47] hover:bg-[#123937] text-white flex items-center justify-center gap-2 py-4 rounded-2xl text-xs font-black shadow-md hover:scale-[1.01] active:scale-[0.99] transition-all">
+                    <a href="{{ route('events.plan', $event) }}" class="w-full bg-[#1b4a47] hover:bg-[#123937] text-white flex items-center justify-center gap-2 py-4 rounded-2xl text-xs font-black shadow-md hover:scale-[1.01] active:scale-[0.99] transition-all">
                         <span>Rencanakan Kunjungan Anda</span>
                         <i class="fas fa-arrow-right text-[10px]"></i>
                     </a>
                     
-                    <button onclick="alert('Acara berhasil disimpan ke kalender Anda!')" class="w-full bg-[#f6f4ef] hover:bg-[#eae8e2] text-gray-700 border border-[#EADFCB]/30 flex items-center justify-center gap-2 py-4 rounded-2xl text-xs font-black shadow-sm hover:scale-[1.01] active:scale-[0.99] transition-all">
-                        <i class="far fa-bookmark text-xs text-[#b4853e]"></i>
-                        <span>Simpan Acara</span>
-                    </button>
+                    @php
+                        $isSaved = auth()->check() && auth()->user()->savedEvents()->where('event_id', $event->id)->exists();
+                    @endphp
+
+                    <form action="{{ route('events.save', $event) }}" method="POST" class="w-full">
+                        @csrf
+                        <button type="submit" class="w-full bg-[#f6f4ef] hover:bg-[#eae8e2] text-gray-700 border border-[#EADFCB]/30 flex items-center justify-center gap-2 py-4 rounded-2xl text-xs font-black shadow-sm hover:scale-[1.01] active:scale-[0.99] transition-all">
+                            @if($isSaved)
+                                <i class="fas fa-bookmark text-xs text-[#b4853e]"></i>
+                                <span>Tersimpan</span>
+                            @else
+                                <i class="far fa-bookmark text-xs text-[#b4853e]"></i>
+                                <span>Simpan Acara</span>
+                            @endif
+                        </button>
+                    </form>
                 </div>
 
                 <!-- Tentang Pameran -->

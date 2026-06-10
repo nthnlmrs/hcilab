@@ -9,7 +9,15 @@ class Story extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'category', 'excerpt', 'content', 'image'];
+    protected $fillable = [
+        'title', 'category', 'excerpt', 'content', 'image',
+        'characters', 'themes', 'historical_significance', 'did_you_know',
+    ];
+
+    protected $casts = [
+        'characters' => 'array',
+        'themes' => 'array',
+    ];
 
     /**
      * Get the fully qualified image URL.

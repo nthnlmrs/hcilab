@@ -83,15 +83,29 @@ class DatabaseSeeder extends Seeder
             'created_at' => now()->subDays(1),
         ]);
 
-        Event::create([
+        $event1 = Event::create([
             'title' => 'Melukis Topeng',
-            'description' => 'Lukisan topeng kreatif & pengalaman budaya',
+            'description' => 'Ikuti workshop Melukis Topeng kami dan temukan seni melukis topeng tradisional yang terinspirasi dari warisan Singhasari. Ekspresikan kreativitas Anda sambil mempelajari makna di balik setiap warna dan motif.',
             'image' => 'https://images.unsplash.com/photo-1544928147-79a2dbc1f389?w=400&h=300&fit=crop',
-            'category' => 'Kegiatan',
-            'event_date' => '2026-06-15',
+            'category' => 'Lukisan topeng kreatif & pengalaman budaya',
+            'event_date' => '2026-05-20',
             'location' => 'Pendopo Luar',
-            'duration' => '1 Hari',
+            'duration' => '120 min',
+            'max_participants' => 15,
+            'target_audience' => 'Semua Usia',
+            'features' => ['materials', 'instructor', 'certificate', 'drinks'],
             'created_at' => now()->subDays(2),
+        ]);
+
+        $event1->schedules()->createMany([
+            ['date' => '2026-05-20', 'start_time' => '09:00:00', 'end_time' => '11:00:00'],
+            ['date' => '2026-05-20', 'start_time' => '11:30:00', 'end_time' => '13:30:00'],
+            ['date' => '2026-05-20', 'start_time' => '14:00:00', 'end_time' => '16:00:00'],
+            ['date' => '2026-05-20', 'start_time' => '16:30:00', 'end_time' => '18:30:00'],
+            ['date' => '2026-05-20', 'start_time' => '19:00:00', 'end_time' => '21:00:00'],
+
+            ['date' => '2026-05-21', 'start_time' => '09:00:00', 'end_time' => '11:00:00'],
+            ['date' => '2026-05-21', 'start_time' => '14:00:00', 'end_time' => '16:00:00'],
         ]);
 
         Event::create([
@@ -145,18 +159,49 @@ class DatabaseSeeder extends Seeder
         // Stories
         Story::create([
             'title' => 'Cerita Kolektif Dunia',
-            'category' => 'Legend',
-            'excerpt' => 'A timeless legend about unity, diversity, and the shared journey of all living things on Earth.',
+            'category' => 'Legenda',
+            'excerpt' => 'Legenda abadi tentang persatuan, keragaman, dan perjalanan bersama semua makhluk hidup di Bumi.',
             'content' => 'Dahulu kala, bumi dihuni oleh beragam suku dan makhluk hidup yang saling berbagi kebijaksanaan alam. Cerita kolektif ini mengisahkan perjalanan nenek moyang dalam menyatukan visi perdamaian demi melestarikan peradaban Singhasari untuk generasi penerus.',
             'image' => 'images/cerita_card.png',
+            'themes' => [
+                [
+                    'title' => 'Koleksi',
+                    'description' => 'Artefak sejarah dari era Kerajaan Singhasari.',
+                    'icon' => 'fas fa-map',
+                ],
+                [
+                    'title' => 'Pameran',
+                    'description' => 'Pameran permanen dan sementara untuk semua usia.',
+                    'icon' => 'fas fa-image',
+                ],
+                [
+                    'title' => 'Edukasi',
+                    'description' => 'Program pembelajaran tentang sejarah.',
+                    'icon' => 'fas fa-graduation-cap',
+                ],
+            ],
+            'historical_significance' => 'Legenda ini mencerminkan nilai-nilai yang dianut oleh masyarakat Kerajaan Singhasari—kerjasama, rasa hormat, dan keseimbangan. Legenda ini mengajarkan bahwa kemakmuran tidak hanya ditemukan dalam kekuasaan, tetapi dalam harmoni antara manusia, alam, dan jiwa.',
+            'did_you_know' => 'Cerita seperti ini diteruskan dari generasi ke generasi melalui tradisi lisan, membentuk kepercayaan, seni, dan kehidupan sehari-hari masyarakat di Jawa kuno.',
         ]);
 
         Story::create([
             'title' => 'Cerita Ken Dedes',
-            'category' => 'Legend',
-            'excerpt' => 'The story of Ken Dedes, a symbol of beauty, wisdom, and the beginning of a great kingdom.',
-            'content' => 'Ken Dedes dikenal sebagai Nareswari, perempuan utama yang melahirkan raja-raja besar di tanah Jawa. Kecantikan spiritual dan fisiknya memikat para penguasa, dan kisahnya dipenuhi dengan pengorbanan, cinta, dan ramalan takdir yang melahirkan wangsa Rajasa.',
+            'category' => 'Legenda',
+            'excerpt' => 'Sebuah kisah tentang pengabdian, cinta, dan takdir.',
+            'content' => 'Dahulu kala, di pusat Tumapel (sebelum Kerajaan Singhasari), hiduplah seorang pejuang pemberani bernama Ken Arok. Ambisi dan keberaniannya membawanya untuk...',
             'image' => 'https://images.unsplash.com/photo-1544928147-79a2dbc1f389?w=600&h=400&fit=crop',
+            'characters' => [
+                [
+                    'name' => 'Ken Dedes',
+                    'image' => 'https://images.unsplash.com/photo-1544928147-79a2dbc1f389?w=100&h=100&fit=crop',
+                ],
+                [
+                    'name' => 'Tunggul Ametung',
+                    'image' => 'https://images.unsplash.com/photo-1518998053401-87891316b25f?w=100&h=100&fit=crop',
+                ],
+            ],
+            'historical_significance' => 'Kisah Ken Arok dan Ken Dedes bukan hanya sebuah roman, tetapi juga simbol dari awal era baru di Jawa Timur. Warisan mereka dikenang sebagai bagian dari fondasi Kerajaan Singhasari yang besar.',
+            'did_you_know' => 'Nama "Singhasari" diyakini berasal dari kata "Singa" (singa) dan "Sari" (inti), melambangkan kekuatan dan kebesaran.',
         ]);
     }
 }

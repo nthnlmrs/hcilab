@@ -40,6 +40,8 @@ Route::get('/map', function () {
     return view('pages.map');
 })->name('map');
 Route::get('/events/{event}', [App\Http\Controllers\EventController::class, 'show'])->name('events.show');
+Route::get('/events/{event}/plan', [App\Http\Controllers\EventController::class, 'plan'])->name('events.plan');
+Route::post('/events/{event}/save', [App\Http\Controllers\EventController::class, 'toggleSave'])->name('events.save')->middleware('auth');
 Route::get('/gallery', function () {
     return view('pages.dummy', ['title' => 'Gallery', 'icon' => 'fas fa-images']);
 })->name('gallery');

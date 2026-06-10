@@ -45,4 +45,12 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * Get the events saved by the user.
+     */
+    public function savedEvents()
+    {
+        return $this->belongsToMany(Event::class, 'saved_events')->withTimestamps();
+    }
 }

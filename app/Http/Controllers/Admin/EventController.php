@@ -32,6 +32,9 @@ class EventController extends Controller
             'location' => 'nullable|string|max:255',
             'duration' => 'nullable|string|max:255',
             'image' => 'nullable|image|max:2048',
+            'features' => 'nullable|array',
+            'max_participants' => 'nullable|integer|min:1',
+            'target_audience' => 'nullable|string|max:255',
         ]);
 
         $imagePath = null;
@@ -47,6 +50,9 @@ class EventController extends Controller
             'location' => $request->location,
             'duration' => $request->duration,
             'image' => $imagePath,
+            'features' => $request->features ?? [],
+            'max_participants' => $request->max_participants ?? 15,
+            'target_audience' => $request->target_audience ?? 'Semua Usia',
         ]);
 
         return redirect()->route('admin.events.index')->with('success', 'Event created successfully.');
@@ -67,6 +73,9 @@ class EventController extends Controller
             'location' => 'nullable|string|max:255',
             'duration' => 'nullable|string|max:255',
             'image' => 'nullable|image|max:2048',
+            'features' => 'nullable|array',
+            'max_participants' => 'nullable|integer|min:1',
+            'target_audience' => 'nullable|string|max:255',
         ]);
 
         $data = [
@@ -76,6 +85,9 @@ class EventController extends Controller
             'event_date' => $request->event_date,
             'location' => $request->location,
             'duration' => $request->duration,
+            'features' => $request->features ?? [],
+            'max_participants' => $request->max_participants ?? 15,
+            'target_audience' => $request->target_audience ?? 'Semua Usia',
         ];
 
         if ($request->hasFile('image')) {
